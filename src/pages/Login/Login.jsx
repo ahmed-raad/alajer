@@ -31,7 +31,7 @@ function Login() {
     const detail = {
       method: "post",
       responseType: "json",
-      url: `http://127.0.0.1:8000/api/login`,
+      url: `https://alajer.herokuapp.com/api/login`,
       data: body,
     };
     axios(detail)

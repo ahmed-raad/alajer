@@ -92,7 +92,7 @@ function Register() {
     const detail = {
       method: "post",
       responseType: "json",
-      url: `http://127.0.0.1:8000/api/register`,
+      url: `https://alajer.herokuapp.com/api/register`,
       data: body,
     };
     axios(detail)

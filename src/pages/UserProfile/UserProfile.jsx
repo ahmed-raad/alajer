@@ -52,7 +52,7 @@ function UserProfile() {
     const detail = {
       method: "PUT",
       responseType: "json",
-      url: `http://127.0.0.1:8000/api/user_update`,
+      url: `https://alajer.herokuapp.com/api/user_update`,
       data: body,
       headers: { Authorization: `Bearer ${user.data.token}` },
     };

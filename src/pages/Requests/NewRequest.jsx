@@ -28,7 +28,7 @@ function NewRequest() {
     const detail = {
       method: "post",
       responseType: "json",
-      url: `http://127.0.0.1:8000/api/create_request`,
+      url: `https://alajer.herokuapp.com/api/create_request`,
       data: body,
       headers: { Authorization: `Bearer ${user.data.token}` },
     };
