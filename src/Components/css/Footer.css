@@ -1,0 +1,106 @@
+footer {
+  height: 430px;
+  background: #1c658c;
+  border-top: 1px solid #636363;
+  border-bottom: 1px solid #636363;
+  padding: 20px 120px;
+}
+
+#footer-heading {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Reem Kufi", sans-serif;
+  font-size: 35px;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+
+#footer-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100%;
+  direction: rtl;
+  color: #ffffff;
+}
+
+#footer-sub-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 100%;
+}
+
+.footer-list {
+  color: #ffffff;
+}
+
+.footer-list-heading {
+  font-family: "TheSans";
+  font-size: 17px;
+  font-weight: 600;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ffffff;
+  width: 120px;
+  text-align: center;
+}
+
+#list3 {
+  margin-right: 150px;
+}
+
+#payment-methods {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+#footer-payment-header {
+  width: 180px;
+  font-family: "TheSans";
+  font-size: 17px;
+  font-weight: 700;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  margin-right: 35%;
+  border-bottom: 1px solid #ffffff;
+  text-align: center;
+}
+
+#payment-methods img {
+  height: 80px;
+  width: 140px;
+}
+
+footer li {
+  text-align: right;
+  font-size: 30px;
+}
+
+footer a {
+  text-decoration: none;
+  font-family: roboto;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  font-family: "TheSans";
+}
+
+footer a:hover,
+footer a:focus {
+  color: #cecece;
+}
+
+#footer ul {
+  list-style-type: none;
+}
+
+@media screen and (max-width: 900px) {
+  #search {
+    display: none;
+  }
+  #icons {
+    display: none;
+  }
+  #menu {
+    display: inline;
+  }
+}

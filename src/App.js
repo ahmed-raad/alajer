@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
+
+import Home from "./pages/Home/Home";
+import UserProfile from "./pages/UserProfile/UserProfile";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Search from "./pages/Search/Search";
+import Requests from "./pages/Requests/Requests";
+import NewRequest from "./pages/Requests/NewRequest";
+import Offers from "./pages/Offers/Offers";
+import NewOffer from "./pages/Offers/NewOffer";
+import Footer from "./Components/Footer/Footer";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Router>
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/user" exact>
+              <UserProfile />
+            </Route>
+            <Route path="/register" exact>
+              <Register />
+            </Route>
+            <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Route path="/search" exact>
+              <Search />
+            </Route>
+            <Route path="/requests" exact>
+              <Requests />
+            </Route>
+            <Route path="/new_request" exact>
+              <NewRequest />
+            </Route>
+            <Route path="/offers" exact>
+              <Offers />
+            </Route>
+            <Route path="/new_offer" exact>
+              <NewOffer />
+            </Route>
+          </Switch>
+        </main>
+      </Router>
+      <Footer />
+    </React.Fragment>
   );
-}
+};
 
 export default App;
