@@ -23,3 +23,5 @@ const colourStyles = {
     padding: 20,
   }),
 };
+
+export default colourStyles;
