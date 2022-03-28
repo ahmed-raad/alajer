@@ -77,7 +77,6 @@ class CarouselGroup2 extends Component {
                 className="sec3-img"
                 src={item.imgUrl}
               />
-
               <h4 key={item.id} className="sec3-item-heading">
                 {item.name} - {item.city}
                 <br />

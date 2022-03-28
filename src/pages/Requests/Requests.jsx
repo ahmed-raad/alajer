@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import "../../Components/css/Requests.css";
 import data from "../../data.json";
@@ -11,33 +11,42 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../../Components/NavBar/NavBar";
+import axios from "axios";
 
 function Requests() {
   const [users, setUsers] = useState(data.slice(0, 90));
   const [pageNumber, setPageNumber] = useState(0);
+  const [requests, setRequests] = useState([]);
 
   const usersPerPage = 10;
   const pagesVisited = pageNumber * usersPerPage;
 
-  const displayUsers = users
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/requests").then((response) => {
+      setRequests(response.data.data);
+    });
+  }, []);
+
+  function addDefaultSrc(ev) {
+    ev.target.src = "images/avatar.png";
+  }
+
+  const displayUsers = requests
     .slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((user) => {
+    .map((request) => {
       return (
-        <div key={user.id} className="user">
+        <div key={request.id} className="request">
           <div className="request_person">
-            <img src="images/avatar.png" />
-            <h3 className="name">{user.full_name}</h3>
-            <h3 className="job">{user.job}</h3>
+            <img
+              src="images/avatar.png"
+              onError={addDefaultSrc}
+              alt="صورة المستخدم"
+            />
+            <h3 className="name">{request.author_name}</h3>
+            <h3 className="job">{request.author_job}</h3>
           </div>
           <div className="request_text">
-            <p>
-              السلام عليكم ورحمة الله وبركاته .. ارغب في عمل خاص للمؤسسة الخاص
-              بي باللغه العربيه والانجليزيه يوجد مثال مرفق ارغب بتصميم الموقع
-              نفس المنصه المعمول بها مع العلم ان النشاط مشابه ولاكن ارغب في
-              الاختلاف في التصميم يفضل من يكون سعره متوافق للميزانية + الخبره
-              والاحترافيه وشرحه لطريقة عمل الموقع
-            </p>
-            <p></p>
+            <p>{request.description}</p>
           </div>
           <div className="request_send">
             <NavLink className="plus_sign" to="/send_request" exact>
@@ -48,7 +57,7 @@ function Requests() {
       );
     });
 
-  const pageCount = Math.ceil(users.length / usersPerPage);
+  const pageCount = Math.ceil(requests.length / usersPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);

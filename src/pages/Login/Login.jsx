@@ -31,12 +31,11 @@ function Login() {
     const detail = {
       method: "post",
       responseType: "json",
-      url: `https://alajer.herokuapp.com/api/login`,
+      url: `http://127.0.0.1:8000/api/login`,
       data: body,
     };
     axios(detail)
       .then((response) => {
-        console.log(response);
         localStorage.setItem("user-info", JSON.stringify(response));
         history.push("/");
       })

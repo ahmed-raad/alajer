@@ -1,23 +1,29 @@
-import React, { useState } from "react";
-import reactSelect from "react-select";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/NavBar/NavBar";
-import colourStyles from "../Register/selectStyles";
-import Select from "react-select";
 import "../../Components/css/UserProfile.css";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 function UserProfile() {
-  const user = JSON.parse(localStorage.getItem("user-info"));
+  const data = localStorage.getItem("user-info");
+  const user = data ? JSON.parse(data) : "";
+  const history = useHistory();
+  const [FullName, setFullName] = useState(data ? user.data.fullname : "");
+  const [Job, setJob] = useState(data ? user.data.job : "");
+  const [Email, setEmail] = useState(data ? user.data.email : "");
+  const [PhoneNumber, setPhoneNumber] = useState(
+    data ? user.data.phonenumber : ""
+  );
+  const [City, setCity] = useState(data ? user.data.city : "");
 
-  const [FullName, setFullName] = useState(user.data.fullname);
-  const [Job, setJob] = useState(user.data.job);
-  const [Email, setEmail] = useState(user.data.email);
-  const [PhoneNumber, setPhoneNumber] = useState(user.data.phonenumber);
-  const [City, setCity] = useState(user.data.city);
+  useEffect(() => {
+    if (!localStorage.getItem("user-info")) {
+      history.push("/login");
+    }
+  }, []);
 
   const handleFullName = (e) => {
     setFullName(e.target.value);
@@ -36,31 +42,32 @@ function UserProfile() {
   };
 
   const handleCity = (e) => {
-    setCity(e["value"]);
+    setCity(e.target.value);
   };
 
   const handleChange = (e) => {
-    console.log(user.data.city);
     let body = {
       fullname: FullName,
       job: Job,
       email: Email,
       city: City,
       phonenumber: PhoneNumber,
-      token: user.data.token,
     };
-    const detail = {
-      method: "PUT",
-      responseType: "json",
-      url: `https://alajer.herokuapp.com/api/user_update`,
-      data: body,
-      headers: { Authorization: `Bearer ${user.data.token}` },
+
+    e.preventDefault();
+    const url = "http://127.0.0.1:8000/api/user_update?_method=PUT";
+    const config = {
+      headers: {
+        Authorization: `Bearer ${data ? user.data.token : ""}`,
+      },
     };
-    axios(detail)
+    axios
+      .post(url, body, config)
+      //axios.put did not work !!
       .then((response) => {
-        console.log(response);
         localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/");
+        history.push("/user");
+        window.location.reload(false);
       })
       .catch((error) => {
         console.log(error.response);
@@ -68,28 +75,69 @@ function UserProfile() {
   };
 
   const options = [
-    { value: "بغداد", label: "بغداد" },
-    { value: "البصرة", label: "البصرة" },
-    { value: "نينوى", label: "نينوى" },
-    { value: "البصرة", label: "البصرة" },
-    { value: "أربيل", label: "أربيل" },
-    { value: "النجف", label: "النجف" },
-    { value: "ذي قار", label: "ذي قار" },
-    { value: "كركوك", label: "كركوك" },
-    { value: "الأنبار", label: "الأنبار" },
-    { value: "ديالى", label: "ديالى" },
-    { value: "الديوانية", label: "الديوانية" },
-    { value: "تكريت", label: "تكريت" },
-    { value: "ميسان", label: "ميسان" },
-    { value: "واسط", label: "واسط" },
-    { value: "السليمانية", label: "السليمانية" },
-    { value: "بابل", label: "بابل" },
-    { value: "كربلاء", label: "كربلاء" },
-    { value: "دهوك", label: "دهوك" },
-    { value: "المثنى", label: "المثنى" },
+    "بغداد",
+    "البصرة",
+    "نينوى",
+    "أربيل",
+    "النجف",
+    "ذي قار",
+    "كركوك",
+    "الأنبار",
+    "ديالى",
+    "الديوانية",
+    "تكريت",
+    "ميسان",
+    "واسط",
+    "السليمانية",
+    "بابل",
+    "كربلاء",
+    "دهوك",
+    "المثنى",
   ];
 
-  const history = useHistory();
+  // Temporary Image Section
+  const [picture, setPicture] = useState(data ? user.data.image : "");
+  const [imgData, setImgData] = useState(data ? user.data.image : "");
+  const onChangePicture = (e) => {
+    if (e.target.files[0]) {
+      const newImg = e.target.files[0];
+      setPicture(newImg);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImgData(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+  // End Temporary Image Section
+
+  const handleImgChange = (e) => {
+    e.preventDefault();
+    const url = "http://127.0.0.1:8000/api/change_image?_method=PUT";
+    const formData = new FormData();
+    formData.append("img", picture);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${data ? user.data.token : ""}`,
+      },
+    };
+    axios
+      .post(url, formData, config)
+      //axios.put did not work !!
+      .then((response) => {
+        localStorage.setItem("user-info", JSON.stringify(response));
+        history.push("/user");
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  function addDefaultSrc(ev) {
+    ev.target.src = "images/avatar.png";
+  }
 
   return (
     <React.Fragment>
@@ -101,7 +149,11 @@ function UserProfile() {
           <form id="user-img-form">
             <div className="user-img">
               <div>
-                <img src="images/avatar.png" />
+                <img
+                  src={imgData}
+                  alt="صورة المستخدم"
+                  onError={addDefaultSrc}
+                />
               </div>
               <div className="upload-submit-img">
                 <label className="img-upload">
@@ -111,10 +163,17 @@ function UserProfile() {
                     id="user-img"
                     name="img"
                     accept="image/*"
+                    onChange={onChangePicture}
                   />
                   <FontAwesomeIcon icon={faCloudUpload} /> تبديل الصورة
                 </label>
-                <button className="save-user-img-btn">حفظ الصورة</button>
+                <button
+                  className="save-user-img-btn"
+                  onClick={handleImgChange}
+                  type="submit"
+                >
+                  حفظ الصورة
+                </button>
               </div>
             </div>
           </form>
@@ -163,7 +222,7 @@ function UserProfile() {
                 <input
                   name="phonenumber"
                   className="short-input input"
-                  type="number"
+                  type="tel"
                   onChange={handlePhoneNumber}
                   value={PhoneNumber}
                   required
@@ -171,23 +230,31 @@ function UserProfile() {
               </label>
               <label>
                 <p>السكن:</p>
-                <Select
+                <select
                   name="city"
                   className="short-input user-select"
-                  placeholder={City}
                   onChange={handleCity}
-                  defaultValue={City}
-                  options={options}
-                  styles={colourStyles}
-                />
+                  value={City}
+                >
+                  {options.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </label>
             </div>
             <div>
-              <button id="user-button" type="button" onClick={handleChange}>
+              <button id="user-button" onClick={handleChange} type="submit">
                 حفظ التغييرات{" "}
               </button>
             </div>
           </form>
+          <div className="bottom-links">
+            <NavLink className="bottom-link" to="/change_password">
+              تغيير كلمة المرور{" "}
+            </NavLink>
+          </div>
         </div>
       </div>
     </React.Fragment>

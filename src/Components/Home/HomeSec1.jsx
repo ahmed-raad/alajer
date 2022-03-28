@@ -19,9 +19,9 @@ class HomeSec1 extends Component {
             </span>
 
             <span id="sec1-btn">
-              <NavLink className="cta" to="/login">
+              <NavLink className="cta" to="/offers">
                 <span>ابحث هنا !</span>
-                <span>
+                <span className="btn-arrows">
                   <svg
                     width="66px"
                     height="43px"

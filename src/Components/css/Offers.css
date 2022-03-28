@@ -1,4 +1,4 @@
-#requests_page {
+#offers_page {
   direction: rtl;
 }
 
@@ -22,12 +22,12 @@ a.plus_sign svg:hover {
   border-radius: 10px;
   background-color: #ffffff;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 90%;
-  height: 250px;
+  height: 100%;
   margin: 20px 5%;
   box-shadow: rgba(99, 99, 99, 0.2) 2px 2px 8px 2px;
 }
@@ -37,9 +37,10 @@ a.plus_sign svg:hover {
   margin: 20px;
 }
 
-.offer .request_person {
-  width: 180px;
-  height: 150px;
+.request_person {
+  width: 80%;
+  height: 100%;
+  padding: 10px;
 }
 
 .offer div h3 {
@@ -54,12 +55,11 @@ a.plus_sign svg:hover {
 }
 
 .offer img {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px auto auto;
 }
 
 .offer .request_text {
@@ -124,4 +124,147 @@ a.plus_sign svg:hover {
 
 .arrowBtn:hover {
   color: #1c658c;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  #offers_page {
+    overflow-x: hidden;
+  }
+
+  #circle_span {
+    margin: 50px;
+  }
+
+  .offer {
+    width: 95%;
+    height: 100%;
+    margin: 20px auto;
+  }
+
+  .offer div {
+    text-align: center;
+    margin: 20px 0px;
+  }
+
+  .offer .request_person {
+    width: 100%;
+    height: 150px;
+    margin: auto;
+    padding: 0px 25px;
+  }
+
+  .offer div h3 {
+    font-size: 130%;
+  }
+
+  .offer .request_text {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .offer .request_text p {
+    font-size: 100%;
+    font-weight: normal;
+  }
+
+  .offer .request_send {
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  #offers_page {
+    overflow-x: hidden;
+  }
+
+  #circle_span {
+    margin: 30px;
+  }
+
+  .offer {
+    width: 95%;
+    height: 100%;
+    margin: 20px auto;
+  }
+
+  .offer div {
+    text-align: center;
+    margin: 20px 0px;
+  }
+
+  .offer .request_person {
+    width: 100%;
+    height: 150px;
+    margin: auto;
+    padding: 0px 25px;
+  }
+
+  .offer div h3 {
+    font-size: 130%;
+  }
+
+  .offer .request_text {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .offer .request_text p {
+    font-size: 80%;
+    font-weight: normal;
+  }
+
+  .offer .request_send {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #offers_page {
+    overflow-x: hidden;
+  }
+
+  #circle_span {
+    margin: 20px;
+  }
+
+  .offer {
+    width: 95%;
+    padding: 15px;
+    height: 100%;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: auto;
+  }
+
+  .offer div {
+    text-align: center;
+    margin: 20px 0px;
+  }
+
+  .offer .request_person {
+    width: 100%;
+    height: 150px;
+    margin: auto;
+    padding: 0px 25px;
+  }
+
+  .offer div h3 {
+    font-size: 130%;
+  }
+
+  .offer .request_text {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .offer .request_text p {
+    font-size: 80%;
+    font-weight: normal;
+  }
+
+  .offer .request_send {
+    margin: 10px auto;
+  }
 }

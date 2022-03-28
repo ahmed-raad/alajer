@@ -74,8 +74,8 @@
 }
 
 #login-img {
-  height: 380px;
-  width: 380px;
+  height: 100%;
+  width: 100%;
   border-radius: 50%;
 }
 
@@ -94,4 +94,108 @@
   font-family: "TheSans";
   padding: 10px 0px;
   color: #1d97dd;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  #login-wrapper {
+    padding: 30px 90px;
+  }
+
+  #login-form {
+    padding: 20px;
+    font-size: 25px;
+  }
+
+  #login-fields {
+    padding: 5px;
+  }
+
+  .login-item input {
+    width: 360px;
+    height: 30px;
+  }
+
+  #login-button {
+    background-color: #1d1d1d;
+    color: #ffffff;
+    font-family: "Arabic Typesetting";
+    font-size: 25px;
+    width: 360px;
+  }
+
+  #login-img-container {
+    height: 320px;
+    width: 320px;
+    position: relative;
+    right: 20px;
+    top: 20%;
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  #login-wrapper {
+    padding: 50px 100px;
+  }
+
+  #login-form {
+    padding: 40px 0px;
+    width: 500px;
+    margin: 0px auto;
+  }
+
+  #login-img-container {
+    display: none;
+  }
+
+  #login-img {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  #login-wrapper {
+    padding: 20px 10px;
+  }
+
+  #login-wrapper h1 {
+    font-size: 28px;
+    margin: 20px 0px;
+  }
+
+  #login-form {
+    padding: 20px 0px;
+    width: 340px;
+    height: 100%;
+    margin: 0px auto;
+  }
+
+  #login-fields {
+    margin-right: 5px;
+  }
+
+  .login-item {
+    font-size: 130%;
+  }
+
+  .login-item input {
+    width: 300px;
+  }
+
+  #login-img-container {
+    display: none;
+  }
+
+  #login-img {
+    display: none;
+  }
+
+  #login-button {
+    font-size: 130%;
+    width: 300px;
+  }
+  .bottom-link {
+    text-decoration: none;
+    font-size: 90%;
+    font-family: "TheSans";
+  }
 }

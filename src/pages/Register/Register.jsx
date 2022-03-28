@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import Select from "react-select";
 import { useHistory } from "react-router-dom";
-import colourStyles from "./selectStyles";
 import axios from "axios";
 
 import "../../../src/Components/css/Register.css";
@@ -25,25 +23,24 @@ function Register() {
   const history = useHistory();
 
   const options = [
-    { value: "بغداد", label: "بغداد" },
-    { value: "البصرة", label: "البصرة" },
-    { value: "نينوى", label: "نينوى" },
-    { value: "البصرة", label: "البصرة" },
-    { value: "أربيل", label: "أربيل" },
-    { value: "النجف", label: "النجف" },
-    { value: "ذي قار", label: "ذي قار" },
-    { value: "كركوك", label: "كركوك" },
-    { value: "الأنبار", label: "الأنبار" },
-    { value: "ديالى", label: "ديالى" },
-    { value: "الديوانية", label: "الديوانية" },
-    { value: "تكريت", label: "تكريت" },
-    { value: "ميسان", label: "ميسان" },
-    { value: "واسط", label: "واسط" },
-    { value: "السليمانية", label: "السليمانية" },
-    { value: "بابل", label: "بابل" },
-    { value: "كربلاء", label: "كربلاء" },
-    { value: "دهوك", label: "دهوك" },
-    { value: "المثنى", label: "المثنى" },
+    "بغداد",
+    "البصرة",
+    "نينوى",
+    "أربيل",
+    "النجف",
+    "ذي قار",
+    "كركوك",
+    "الأنبار",
+    "ديالى",
+    "الديوانية",
+    "تكريت",
+    "ميسان",
+    "واسط",
+    "السليمانية",
+    "بابل",
+    "كربلاء",
+    "دهوك",
+    "المثنى",
   ];
 
   const handleFullName = (e) => {
@@ -75,7 +72,7 @@ function Register() {
   };
 
   const handleCity = (e) => {
-    setCity(e["value"]);
+    setCity(e.target.value);
   };
 
   const handleregister = () => {
@@ -92,12 +89,11 @@ function Register() {
     const detail = {
       method: "post",
       responseType: "json",
-      url: `https://alajer.herokuapp.com/api/register`,
+      url: `http://127.0.0.1:8000/api/register`,
       data: body,
     };
     axios(detail)
       .then((response) => {
-        console.log(response);
         localStorage.setItem("user-info", JSON.stringify(response));
         history.push("/");
       })
@@ -206,7 +202,7 @@ function Register() {
                 <input
                   name="phonenumber"
                   className="short-input input"
-                  type="number"
+                  type="tel"
                   onChange={handlePhoneNumber}
                   value={PhoneNumber}
                   required
@@ -214,15 +210,22 @@ function Register() {
               </label>
               <label>
                 <p>السكن:</p>
-                <Select
+                <select
                   name="city"
                   className="short-input register-select"
                   onChange={handleCity}
-                  defaultValue={City}
-                  placeholder="اختر محافظتك"
-                  options={options}
-                  styles={colourStyles}
-                />
+                  value={City}
+                >
+                  <option value="" disabled selected hidden>
+                    اختر المحافظة التي تسكن فيها{" "}
+                  </option>
+
+                  {options.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </label>
             </div>
 

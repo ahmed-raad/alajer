@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "../css/NavBar.css";
 import { NavLink, useHistory } from "react-router-dom";
-import $ from "jquery";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +12,7 @@ import {
   faUser,
   faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const Navbar = () => {
   let user = JSON.parse(localStorage.getItem("user-info"));
@@ -46,9 +46,11 @@ const Navbar = () => {
             <>
               <li key="user" className="nav-item">
                 <NavLink className="nav-link" to="/user" exact>
-                  {user.data.fullname.split(" ")[0]
+                  {user.data
                     ? user.data.fullname.split(" ")[0]
-                    : user.data.fullname}{" "}
+                      ? user.data.fullname.split(" ")[0]
+                      : user.data.fullname
+                    : ""}{" "}
                   <FontAwesomeIcon icon={faUser} />
                 </NavLink>
               </li>

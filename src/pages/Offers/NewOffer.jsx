@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../../../src/Components/css/NewRequest.css";
 import Navbar from "../../Components/NavBar/NavBar";
@@ -7,6 +7,12 @@ import Navbar from "../../Components/NavBar/NavBar";
 function NewOffer() {
   const user = JSON.parse(localStorage.getItem("user-info"));
   const history = useHistory();
+
+  useEffect(() => {
+    if (!localStorage.getItem("user-info")) {
+      history.push("/login");
+    }
+  }, []);
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
@@ -43,13 +49,13 @@ function NewOffer() {
   return (
     <React.Fragment>
       <Navbar />
-      <div id="new-wrapper">
+      <div className="new-wrapper">
         <h1>نشر خدمة جديدة</h1>
-        <form id="new-form">
-          <div id="new-fields">
+        <form className="new-form">
+          <div className="new-fields">
             <div className="new-item">
               <label>
-                <p id="new-title">عنوان الخدمة: &nbsp;</p>
+                <p className="new-title">عنوان الخدمة: &nbsp;</p>
                 <input
                   name="title"
                   type="text"
@@ -62,7 +68,7 @@ function NewOffer() {
 
             <div className="new-item">
               <label>
-                <p id="new-detail">
+                <p className="new-detail">
                   * يرجى كتابة تفاصيل الخدمات التي تعرضها و مدى مهرتك فيها بشكل
                   دقيق.
                 </p>
@@ -75,7 +81,11 @@ function NewOffer() {
               </label>
             </div>
             <div>
-              <button id="new-button" onClick={handleSubmit} type="button">
+              <button
+                className="new-button"
+                onClick={handleSubmit}
+                type="button"
+              >
                 نشر الطلب
               </button>
             </div>

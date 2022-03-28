@@ -21,7 +21,7 @@
   padding: 30px 60px;
   background-color: #ffffff;
   border-radius: 50px;
-  height: 600px;
+  height: 80%;
   display: grid;
   grid-template-columns: auto auto;
   width: 100%;
@@ -32,7 +32,7 @@
   margin-right: 40px;
 }
 
-.register-item {
+#register-form .register-item {
   font-family: "Arabic Typesetting";
   font-size: 30px;
   font-weight: 800;
@@ -55,6 +55,7 @@
   border-radius: 5px;
   height: 40px;
   border: 1px solid #000;
+  padding: 5px;
 }
 
 .long-input {
@@ -70,22 +71,21 @@
   text-align: center;
   font-weight: 600;
   height: 40px;
-  font-size: 25px;
+  font-size: 28px;
+  border-color: #000;
+  background-color: #ffffff;
+  box-shadow: none;
+  border-radius: 5px;
+  text-overflow: ellipsis;
 }
 
-.css-1s2u09g-control,
-.css-1pahdxg-control {
-  font-size: 20px;
-  border-color: #000 !important;
-  box-shadow: none !important;
-  border-radius: 5px !important;
-  height: 40px;
-  top: 2px;
+.register-select option {
+  text-overflow: ellipsis;
 }
 
-.css-1pahdxg-control:hover {
-  border: 1px solid#000 !important;
-  box-shadow: none !important;
+.register-select:hover {
+  border: 1px solid#000;
+  box-shadow: none;
 }
 
 #account-type {
@@ -133,7 +133,175 @@
 }
 
 #register-img {
-  height: 440px;
-  width: 440px;
+  height: 100%;
+  width: 100%;
   border-radius: 50%;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  #register-wrapper {
+    padding: 30px 90px;
+  }
+
+  #register-form {
+    padding: 20px;
+  }
+
+  #register-form .register-item {
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  .input {
+    height: 30px;
+  }
+
+  .long-input {
+    width: 400px;
+  }
+
+  .short-input {
+    width: 190px;
+    margin-left: 20px;
+  }
+
+  #account-type {
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  .register-select {
+    height: 30px;
+    font-size: 25px;
+  }
+
+  .register-select option {
+    font-size: 20px;
+  }
+
+  #register-button {
+    font-size: 25px;
+    width: 400px;
+  }
+
+  #register-img-container {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    right: 20px;
+    top: 20%;
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  #register-wrapper {
+    padding: 50px 100px;
+  }
+
+  #register-form {
+    padding: 40px 0px;
+    width: 540px;
+    margin: 0px auto;
+  }
+
+  #register-img-container {
+    display: none;
+  }
+
+  #register-img {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  #register-wrapper {
+    padding: 20px 10px;
+  }
+
+  #register-wrapper h1 {
+    font-size: 28px;
+    font-weight: 900;
+    margin: 20px 0px;
+  }
+
+  #register-form {
+    padding: 20px 0px;
+    width: 340px;
+    height: 100%;
+    margin: 0px auto;
+  }
+
+  #register-fields {
+    margin-right: 5%;
+  }
+
+  #register-form .register-item {
+    font-family: "Arabic Typesetting";
+    font-size: 120%;
+  }
+
+  .input {
+    height: 50%;
+    border: 1px solid #000;
+    padding: 5px;
+  }
+
+  .long-input {
+    width: 300px;
+  }
+
+  .short-input {
+    width: 140px;
+    margin-left: 20px;
+  }
+
+  .register-select {
+    height: 50%;
+    font-size: 120%;
+  }
+
+  .register-select:hover,
+  .register-select:focus {
+    border: 1px solid#000;
+    box-shadow: none;
+  }
+
+  #account-type {
+    font-size: 110%;
+    font-weight: 800;
+    width: 150%;
+    height: 8%;
+    margin-top: 5%;
+  }
+
+  #account-type span {
+    height: 50%;
+    width: 100px;
+    margin: 0px 10px;
+  }
+
+  #account-type input {
+    width: 15%;
+    margin-right: 10px;
+  }
+
+  #account-type label {
+    font-size: 120%;
+    margin: 0px;
+  }
+
+  #register-button {
+    font-size: 100%;
+    width: 300px;
+    padding: 5px;
+    height: 100%;
+  }
+
+  #register-img-container {
+    display: none;
+  }
+
+  #register-img {
+    display: none;
+  }
 }

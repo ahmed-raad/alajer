@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../../../src/Components/css/NewRequest.css";
 import Navbar from "../../Components/NavBar/NavBar";
@@ -10,6 +10,12 @@ function NewRequest() {
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
+
+  useEffect(() => {
+    if (!localStorage.getItem("user-info")) {
+      history.push("/login");
+    }
+  }, []);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -28,7 +34,7 @@ function NewRequest() {
     const detail = {
       method: "post",
       responseType: "json",
-      url: `https://alajer.herokuapp.com/api/create_request`,
+      url: `http://127.0.0.1:8000/api/create_request`,
       data: body,
       headers: { Authorization: `Bearer ${user.data.token}` },
     };
@@ -43,13 +49,13 @@ function NewRequest() {
   return (
     <React.Fragment>
       <Navbar />
-      <div id="new-wrapper">
+      <div className="new-wrapper">
         <h1>نشر طلب جديد</h1>
-        <form id="new-form">
-          <div id="new-fields">
+        <form className="new-form">
+          <div className="new-fields">
             <div className="new-item">
               <label>
-                <p id="new-title">عنوان الطلب: &nbsp;</p>
+                <p className="new-title">عنوان الطلب: &nbsp;</p>
                 <input
                   name="title"
                   type="text"
@@ -62,7 +68,7 @@ function NewRequest() {
 
             <div className="new-item">
               <label>
-                <p id="new-detail">
+                <p className="new-detail">
                   * يرجى كتابة تفاصيل طلبك بشكل دقيق لإيجاد أفضل المحترفين
                   القادرين على تلبيته لك
                 </p>
@@ -75,7 +81,11 @@ function NewRequest() {
               </label>
             </div>
             <div>
-              <button id="new-button" onClick={handleSubmit} type="button">
+              <button
+                className="new-button"
+                onClick={handleSubmit}
+                type="button"
+              >
                 نشر الطلب
               </button>
             </div>
