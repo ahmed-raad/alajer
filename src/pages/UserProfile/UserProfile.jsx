@@ -5,23 +5,23 @@ import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import options from "../../utils/cityOptions";
+
 
 function UserProfile() {
-  const data = localStorage.getItem("user-info");
-  const user = data ? JSON.parse(data) : "";
-  const history = useHistory();
-  const [FullName, setFullName] = useState(data ? user.data.fullname : "");
-  const [Job, setJob] = useState(data ? user.data.job : "");
-  const [Email, setEmail] = useState(data ? user.data.email : "");
-  const [PhoneNumber, setPhoneNumber] = useState(
-    data ? user.data.phonenumber : ""
-  );
-  const [City, setCity] = useState(data ? user.data.city : "");
+  const navigate = useNavigate();
+  let { user } = JSON.parse(localStorage.getItem("user-info")).data;
+
+  const [FullName, setFullName] = useState(user.fullname);
+  const [Job, setJob] = useState(user.job);
+  const [Email, setEmail] = useState(user.email);
+  const [PhoneNumber, setPhoneNumber] = useState(user.phonenumber);
+  const [City, setCity] = useState(user.city);
 
   useEffect(() => {
     if (!localStorage.getItem("user-info")) {
-      history.push("/login");
+      navigate("/login");
     }
   }, []);
 
@@ -58,7 +58,7 @@ function UserProfile() {
     const url = "http://127.0.0.1:8000/api/user_update?_method=PUT";
     const config = {
       headers: {
-        Authorization: `Bearer ${data ? user.data.token : ""}`,
+        Authorization: `Bearer ${user.token}`,
       },
     };
     axios
@@ -66,78 +66,13 @@ function UserProfile() {
       //axios.put did not work !!
       .then((response) => {
         localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/user");
+        navigate("/user");
         window.location.reload(false);
       })
       .catch((error) => {
         console.log(error.response);
       });
   };
-
-  const options = [
-    "بغداد",
-    "البصرة",
-    "نينوى",
-    "أربيل",
-    "النجف",
-    "ذي قار",
-    "كركوك",
-    "الأنبار",
-    "ديالى",
-    "الديوانية",
-    "تكريت",
-    "ميسان",
-    "واسط",
-    "السليمانية",
-    "بابل",
-    "كربلاء",
-    "دهوك",
-    "المثنى",
-  ];
-
-  // Temporary Image Section
-  const [picture, setPicture] = useState(data ? user.data.image : "");
-  const [imgData, setImgData] = useState(data ? user.data.image : "");
-  const onChangePicture = (e) => {
-    if (e.target.files[0]) {
-      const newImg = e.target.files[0];
-      setPicture(newImg);
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setImgData(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-  // End Temporary Image Section
-
-  const handleImgChange = (e) => {
-    e.preventDefault();
-    const url = "http://127.0.0.1:8000/api/change_image?_method=PUT";
-    const formData = new FormData();
-    formData.append("img", picture);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${data ? user.data.token : ""}`,
-      },
-    };
-    axios
-      .post(url, formData, config)
-      //axios.put did not work !!
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/user");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
-
-  function addDefaultSrc(ev) {
-    ev.target.src = "images/avatar.png";
-  }
 
   return (
     <React.Fragment>
@@ -146,37 +81,14 @@ function UserProfile() {
         <h1>صفحة المستخدم</h1>
 
         <div id="user-description">
-          <form id="user-img-form">
-            <div className="user-img">
-              <div>
-                <img
-                  src={imgData}
-                  alt="صورة المستخدم"
-                  onError={addDefaultSrc}
-                />
-              </div>
-              <div className="upload-submit-img">
-                <label className="img-upload">
-                  <input
-                    className="user-img-input"
-                    type="file"
-                    id="user-img"
-                    name="img"
-                    accept="image/*"
-                    onChange={onChangePicture}
-                  />
-                  <FontAwesomeIcon icon={faCloudUpload} /> تبديل الصورة
-                </label>
-                <button
-                  className="save-user-img-btn"
-                  onClick={handleImgChange}
-                  type="submit"
-                >
-                  حفظ الصورة
-                </button>
-              </div>
+          <div className="user-img">
+            <div>
+              <img
+                src='images/avatar.png'
+                alt="صورة المستخدم"
+              />
             </div>
-          </form>
+          </div>
           <form id="user-form">
             <div className="user-item">
               <label>
@@ -244,11 +156,13 @@ function UserProfile() {
                 </select>
               </label>
             </div>
-            <div>
+
+            <div className="user-item">
               <button id="user-button" onClick={handleChange} type="submit">
                 حفظ التغييرات{" "}
               </button>
             </div>
+
           </form>
           <div className="bottom-links">
             <NavLink className="bottom-link" to="/change_password">

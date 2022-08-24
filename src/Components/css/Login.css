@@ -33,39 +33,6 @@
   margin-right: 40px;
 }
 
-.login-item {
-  font-family: "Arabic Typesetting";
-  font-size: 30px;
-  font-weight: 800;
-  margin: 15px 0px;
-}
-
-.login-item p {
-  margin-bottom: 0px;
-}
-
-.login-item input {
-  border-radius: 5px;
-  width: 400px;
-}
-
-#login-button {
-  background-color: #1d1d1d;
-  color: #ffffff;
-  font-family: "Arabic Typesetting";
-  font-size: 30px;
-  font-weight: 500;
-  width: 400px;
-  margin: 10px 0px;
-  border-radius: 10px;
-  border: none;
-}
-
-#login-button:hover {
-  background-color: #000000;
-  font-weight: 900;
-}
-
 #login-img-container {
   height: 380px;
   width: 380px;
@@ -108,19 +75,6 @@
 
   #login-fields {
     padding: 5px;
-  }
-
-  .login-item input {
-    width: 360px;
-    height: 30px;
-  }
-
-  #login-button {
-    background-color: #1d1d1d;
-    color: #ffffff;
-    font-family: "Arabic Typesetting";
-    font-size: 25px;
-    width: 360px;
   }
 
   #login-img-container {
@@ -172,15 +126,7 @@
   #login-fields {
     margin-right: 5px;
   }
-
-  .login-item {
-    font-size: 130%;
-  }
-
-  .login-item input {
-    width: 300px;
-  }
-
+  
   #login-img-container {
     display: none;
   }
@@ -189,10 +135,6 @@
     display: none;
   }
 
-  #login-button {
-    font-size: 130%;
-    width: 300px;
-  }
   .bottom-link {
     text-decoration: none;
     font-size: 90%;

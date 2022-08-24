@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import NavBar from "../../Components/NavBar/NavBar";
-import "../../../src/Components/css/Login.css";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../../../src/Components/css/Login.css";
+import SignButton from './../../Components/common/SignButton';
+import NavBar from "../../Components/NavBar/NavBar"
+import Input from "../../Components/common/Input";;
 
 function Login() {
+  const navigate = useNavigate();
+
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const history = useHistory();
   useEffect(() => {
     if (localStorage.getItem("user-info")) {
-      history.push("/");
+      navigate("/");
     }
   }, []);
 
@@ -24,24 +26,25 @@ function Login() {
   };
 
   const handleLogin = () => {
-    let body = {
-      email: Email,
-      password: Password,
-    };
-    const detail = {
-      method: "post",
-      responseType: "json",
-      url: `http://127.0.0.1:8000/api/login`,
-      data: body,
-    };
-    axios(detail)
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    // let body = {
+    //   email: Email,
+    //   password: Password,
+    // };
+    // const detail = {
+    //   method: "post",
+    //   responseType: "json",
+    //   url: `http://127.0.0.1:8000/api/login`,
+    //   data: body,
+    // };
+    // axios(detail)
+    //   .then((response) => {
+    //     localStorage.setItem("user-info", JSON.stringify(response));
+    //     navigate("/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
+    console.log('Logged in!')
   };
   return (
     <React.Fragment>
@@ -50,33 +53,34 @@ function Login() {
         <h1>تسجيل الدخول</h1>
         <form id="login-form">
           <div id="login-fields">
-            <div className="login-item">
-              <label>
-                <p>البريد الالكتروني:</p>
-                <input
-                  type="email"
-                  onChange={handleEmail}
-                  value={Email}
-                  required
-                />
-              </label>
+
+            <div className="sign-item">
+              <Input
+                inputName="email"
+                inputValue={Email}
+                inputType="email"
+                inputLabel="البريد الالكتروني:"
+                inputClass="long-input input"
+                onChange={handleEmail}
+              />
             </div>
 
-            <div className="login-item">
-              <label>
-                <p>كلمة السر:</p>
-                <input
-                  type="password"
-                  onChange={handlePassword}
-                  value={Password}
-                  required
-                />
-              </label>
+            <div className="sign-item">
+              <Input
+                inputName="password"
+                inputValue={Password}
+                inputType="password"
+                inputLabel="كلمة السر:"
+                inputClass="long-input input"
+                onChange={handlePassword}
+              />
             </div>
+
             <div>
-              <button id="login-button" type="button" onClick={handleLogin}>
-                تسجيل الدخول
-              </button>
+              <SignButton
+                btnLabel="تسجيل الدخول"
+                onClick={handleLogin}
+              />
             </div>
             <div id="bottom-links">
               <ul>

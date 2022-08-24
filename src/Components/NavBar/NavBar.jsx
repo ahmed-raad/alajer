@@ -1,26 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../css/NavBar.css";
-import { NavLink, useHistory } from "react-router-dom";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUserPlus,
-  faSignIn,
-  faCommenting,
-  faTags,
-  faHome,
-  faUser,
-  faSignOut,
-} from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import { NavLink } from "react-router-dom";
+import logout from "../../utils/logout";
+import icons from "./Icons";
 
 const Navbar = () => {
-  let user = JSON.parse(localStorage.getItem("user-info"));
-  const history = useHistory();
-  function logOut() {
-    localStorage.clear();
-    history.push("/");
-  }
+  let userInfo = JSON.parse(localStorage.getItem("user-info"));
+
+  let user = userInfo ? userInfo.data.user : null;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -42,22 +29,23 @@ const Navbar = () => {
             <div className="right"></div>
           </div>
 
-          {localStorage.getItem("user-info") ? (
+          {userInfo ? (
             <>
               <li key="user" className="nav-item">
                 <NavLink className="nav-link" to="/user" exact>
-                  {user.data
-                    ? user.data.fullname.split(" ")[0]
-                      ? user.data.fullname.split(" ")[0]
-                      : user.data.fullname
+                  {user
+                    ? user.fullname.split(" ")[0]
+                      ? user.fullname.split(" ")[0]
+                      : user.fullname
                     : ""}{" "}
-                  <FontAwesomeIcon icon={faUser} />
+                  {icons.User}
                 </NavLink>
               </li>
 
               <li key="logout" className="nav-item nav-item-middle">
-                <a href="/" onClick={logOut} className="nav-link" to="/">
-                  تسجيل الخروج <FontAwesomeIcon icon={faSignOut} />
+                <a href="/" onClick={logout} className="nav-link" to="/">
+                  تسجيل الخروج {icons.SignOut}
+
                 </a>
               </li>
             </>
@@ -65,13 +53,13 @@ const Navbar = () => {
             <>
               <li key="register" className="nav-item">
                 <NavLink className="nav-link" to="/register" exact>
-                  إنشاء حساب <FontAwesomeIcon icon={faUserPlus} />
+                  إنشاء حساب {icons.SignUp}
                 </NavLink>
               </li>
 
               <li key="login" className="nav-item nav-item-middle">
                 <NavLink className="nav-link" to="/login" exact>
-                  تسجيل دخول <FontAwesomeIcon icon={faSignIn} />
+                  تسجيل دخول {icons.SignIn}
                 </NavLink>
               </li>
             </>
@@ -79,18 +67,18 @@ const Navbar = () => {
 
           <li key="requests" className="nav-item">
             <NavLink className="nav-link" to="/requests" exact>
-              الطلبات <FontAwesomeIcon icon={faCommenting} />
+              الطلبات {icons.Requests}
             </NavLink>
           </li>
           <li key="offers" className="nav-item">
             <NavLink className="nav-link" to="/offers" exact>
-              الخدمات <FontAwesomeIcon icon={faTags} />
+              الخدمات {icons.Services}
             </NavLink>
           </li>
 
           <li key="homepage" className="nav-item ">
             <NavLink className=" nav-link" to="/" exact>
-              الصفحة الرئيسية <FontAwesomeIcon icon={faHome} />
+              الصفحة الرئيسية {icons.Home}
             </NavLink>
           </li>
         </ul>

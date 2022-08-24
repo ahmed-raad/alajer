@@ -1,19 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../../src/Components/css/NewRequest.css";
 import Navbar from "../../Components/NavBar/NavBar";
 
 function NewRequest() {
   const user = JSON.parse(localStorage.getItem("user-info"));
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("user-info")) {
-      history.push("/login");
+      navigate("/login");
     }
   }, []);
 
@@ -40,7 +40,7 @@ function NewRequest() {
     };
     axios(detail)
       .then((response) => {
-        history.push("/requests");
+        navigate("/requests");
       })
       .catch((error) => {
         console.log(error.response);

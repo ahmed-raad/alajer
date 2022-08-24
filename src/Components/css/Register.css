@@ -32,25 +32,6 @@
   margin-right: 40px;
 }
 
-#register-form .register-item {
-  font-family: "Arabic Typesetting";
-  font-size: 30px;
-  font-weight: 800;
-  display: grid;
-  grid-template-columns: auto auto;
-  width: 150px;
-  margin-top: 5px;
-}
-
-.register-item p {
-  margin-bottom: 0px;
-}
-
-.register-item label {
-  padding: 0px;
-  margin: 0px;
-}
-
 .input {
   border-radius: 5px;
   height: 40px;
@@ -88,7 +69,7 @@
   box-shadow: none;
 }
 
-#account-type {
+.account-type {
   font-family: "Arabic Typesetting";
   font-size: 30px;
   font-weight: 800;
@@ -97,17 +78,17 @@
   margin-top: 5px;
 }
 
-#account-type span {
+.account-type span {
   height: 50px;
   width: 120px;
   margin: 0px 20px;
 }
 
-#account-type input {
+.account-type input {
   margin-left: 8px;
 }
 
-#register-button {
+.sign-btn {
   background-color: #1d1d1d;
   color: #ffffff;
   font-family: "Arabic Typesetting";
@@ -119,7 +100,7 @@
   border: none;
 }
 
-#register-button:hover {
+.sign-btn:hover {
   background-color: #000000;
   font-weight: 900;
 }
@@ -147,11 +128,6 @@
     padding: 20px;
   }
 
-  #register-form .register-item {
-    font-size: 25px;
-    font-weight: 600;
-  }
-
   .input {
     height: 30px;
   }
@@ -165,7 +141,7 @@
     margin-left: 20px;
   }
 
-  #account-type {
+  .account-type {
     font-size: 25px;
     font-weight: 600;
   }
@@ -179,7 +155,7 @@
     font-size: 20px;
   }
 
-  #register-button {
+  .sign-btn {
     font-size: 25px;
     width: 400px;
   }
@@ -235,11 +211,6 @@
     margin-right: 5%;
   }
 
-  #register-form .register-item {
-    font-family: "Arabic Typesetting";
-    font-size: 120%;
-  }
-
   .input {
     height: 50%;
     border: 1px solid #000;
@@ -266,7 +237,7 @@
     box-shadow: none;
   }
 
-  #account-type {
+  .account-type {
     font-size: 110%;
     font-weight: 800;
     width: 150%;
@@ -274,23 +245,23 @@
     margin-top: 5%;
   }
 
-  #account-type span {
+  .account-type span {
     height: 50%;
     width: 100px;
     margin: 0px 10px;
   }
 
-  #account-type input {
+  .account-type input {
     width: 15%;
     margin-right: 10px;
   }
 
-  #account-type label {
+  .account-type label {
     font-size: 120%;
     margin: 0px;
   }
 
-  #register-button {
+  .sign-btn {
     font-size: 100%;
     width: 300px;
     padding: 5px;

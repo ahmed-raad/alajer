@@ -1,16 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../../src/Components/css/NewRequest.css";
 import Navbar from "../../Components/NavBar/NavBar";
 
 function NewOffer() {
   const user = JSON.parse(localStorage.getItem("user-info"));
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("user-info")) {
-      history.push("/login");
+      navigate("/login");
     }
   }, []);
 
@@ -40,7 +40,7 @@ function NewOffer() {
     };
     axios(detail)
       .then((response) => {
-        history.push("/offers");
+        navigate("/offers");
       })
       .catch((error) => {
         console.log(error.response);

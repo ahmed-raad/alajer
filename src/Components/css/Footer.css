@@ -17,16 +17,10 @@ footer {
 
 #footer-container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   width: 100%;
   direction: rtl;
   color: #ffffff;
-}
-
-#footer-sub-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  width: 100%;
 }
 
 .footer-list {

@@ -1,0 +1,72 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullname": "أحمد رعد",
+      "job": "مطور ويب",
+      "account_type": "حساب محترف",
+      "email": "ahmed.raad@yahoo.com",
+      "password": "12345678",
+      "city": "بغداد",
+      "phonenumber": 777555
+    },
+    {
+      "fullname": "أحمد رعد",
+      "job": "مطور ويب",
+      "account_type": "حساب محترف",
+      "email": "ahmed.wwww@yahoo.com",
+      "password": "12345678",
+      "city": "بغداد",
+      "phonenumber": 777555,
+      "id": 2
+    },
+    {
+      "email": "ahmed.sss@yahoo.com",
+      "password": "$2a$10$1Nt830/kYDNi6kWmwvzgy.1bbUTdcNb5h44YRhnaCe5NhMScCvGri",
+      "fullname": "أحمد رعد",
+      "job": "مطور ويب",
+      "account_type": "حساب محترف",
+      "city": "بغداد",
+      "phonenumber": 777555,
+      "id": 3
+    },
+    {
+      "email": "ass@gmail.com",
+      "password": "$2a$10$r06DnMGBiB5P1S8ZuGiRGeAdldthr6pfofNthua4BENZ5LYYx/y1S",
+      "fullname": "Ahmed Naser",
+      "job": "ssss",
+      "account_type": "حساب عادي",
+      "password_confirmation": "0000",
+      "city": "دهوك",
+      "phonenumber": "7777777",
+      "id": 4
+    },
+    {
+      "email": "aaaa@gmail.com",
+      "password": "$2a$10$yqG7tjB2J3Rr4FMwPCP1fexh8r0rrWVm5sf2rBiV/c0ib3j9qk0qu",
+      "fullname": "Ahmed Naser",
+      "job": "asass",
+      "account_type": "حساب محترف",
+      "city": "البصرة",
+      "phonenumber": "7777777",
+      "id": 5
+    },
+    {
+      "email": "haider@gmail.com",
+      "password": "$2a$10$U122OdAaM9ePsY1MGAKpm.KAgne6dHIlHJ5UlfD9Zr16eP9/RVCsa",
+      "fullname": "حيدر",
+      "job": "رعد",
+      "account_type": "حساب محترف",
+      "city": "ديالى",
+      "phonenumber": "2222222",
+      "id": 6
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net"
+    }
+  ]
+}

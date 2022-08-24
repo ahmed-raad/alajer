@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
 import UserProfile from "./pages/UserProfile/UserProfile";
@@ -17,38 +17,17 @@ const App = () => {
   return (
     <React.Fragment>
       <Router>
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/user" exact>
-              <UserProfile />
-            </Route>
-            <Route path="/register" exact>
-              <Register />
-            </Route>
-            <Route path="/login" exact>
-              <Login />
-            </Route>
-
-            <Route path="/requests" exact>
-              <Requests />
-            </Route>
-            <Route path="/new_request" exact>
-              <NewRequest />
-            </Route>
-            <Route path="/offers" exact>
-              <Offers />
-            </Route>
-            <Route path="/new_offer" exact>
-              <NewOffer />
-            </Route>
-            <Route path="/change_password" exact>
-              <ChangePassword />
-            </Route>
-          </Switch>
-        </main>
+        <Routes>
+          <Route path="/" element={<Home />} exact />
+          <Route path="/user" element={<UserProfile />} exact />
+          <Route path="/register" element={<Register />} exact />
+          <Route path="/login" element={<Login />} exact />
+          <Route path="/requests" element={<Requests />} exact />
+          <Route path="/new_request" element={<NewRequest />} exact />
+          <Route path="/offers" element={<Offers />} exact />
+          <Route path="/new_offer" element={<NewOffer />} exact />
+          <Route path="/change_password" element={<ChangePassword />} exact />        
+        </Routes>
       </Router>
       <Footer />
     </React.Fragment>

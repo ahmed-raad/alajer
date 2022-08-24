@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/NavBar/NavBar";
 import "../../../src/Components/css/ChangePassword.css";
 import { NavLink } from "react-router-dom";
@@ -13,11 +13,11 @@ function ChangePassword() {
   const data = localStorage.getItem("user-info");
   const user = data ? JSON.parse(data) : "";
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("user-info")) {
-      history.push("/login");
+      navigate("/login");
     }
   }, []);
 
@@ -51,7 +51,7 @@ function ChangePassword() {
       .post(url, body, config)
       //axios.put did not work !!
       .then((response) => {
-        history.push("/user");
+        navigate("/user");
       })
       .catch((error) => {
         console.log(error.response);
