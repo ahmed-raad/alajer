@@ -7,7 +7,7 @@ axios.interceptors.response.use(null, error => {
     
     if(!expectedError) {
         logger.log(error);
-        toast.error('Something failed while deleteing a post!');
+        toast.error('Sorry ... Something failed, please try again!');
     }
     
     return Promise.reject(error);

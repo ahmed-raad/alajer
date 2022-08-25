@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import options from "../../utils/cityOptions";
+import httpService from "../../services/httpService";
+import checkLogginIn from './../../utils/checkLogginIn';
 import config from '../../config.json';
-import axios from "axios";
 
 import "../../../src/Components/css/Register.css";
 import Navbar from "../../Components/NavBar/NavBar";
@@ -14,11 +15,8 @@ import SignButton from './../../Components/common/SignButton';
 function Register() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem("user-info")) {
-      navigate("/");
-    }
-  }, []);
+  checkLogginIn.redirectToHome();
+
   const [FullName, setFullName] = useState("");
   const [Job, setJob] = useState("");
   const [AccountType, setAccountType] = useState("");
@@ -60,8 +58,7 @@ function Register() {
     setCity(e.target.value);
   };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const handleRegister = async () => {
     let body = {
       fullname: FullName,
       job: Job,
@@ -72,21 +69,9 @@ function Register() {
       phonenumber: PhoneNumber,
     };
 
-    console.log(body);
-    const detail = {
-      method: "post",
-      responseType: "json",
-      url: config.apiUrl,
-      data: body,
-    };
-    axios(detail)
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    const {data: response} = await httpService.post(`${config.apiUrl}/register`, body);
+    localStorage.setItem("user-info", JSON.stringify(response));
+    navigate("/");
   };
   return (
     <React.Fragment>

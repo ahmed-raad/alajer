@@ -3,27 +3,25 @@ import Navbar from "../../Components/NavBar/NavBar";
 import "../../Components/css/UserProfile.css";
 import axios from "axios";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import options from "../../utils/cityOptions";
+import checkLogginIn from './../../utils/checkLogginIn';
 
 
 function UserProfile() {
+  
+  checkLogginIn.redirectToLogin();
+
   const navigate = useNavigate();
-  let { user } = JSON.parse(localStorage.getItem("user-info")).data;
+  let userInfo = JSON.parse(localStorage.getItem("user-info"));
+  
+  let user = userInfo ? userInfo.data.user : null;
 
-  const [FullName, setFullName] = useState(user.fullname);
-  const [Job, setJob] = useState(user.job);
-  const [Email, setEmail] = useState(user.email);
-  const [PhoneNumber, setPhoneNumber] = useState(user.phonenumber);
-  const [City, setCity] = useState(user.city);
-
-  useEffect(() => {
-    if (!localStorage.getItem("user-info")) {
-      navigate("/login");
-    }
-  }, []);
+  const [FullName, setFullName] = useState(user ? user.fullname : null);
+  const [Job, setJob] = useState(user ? user.job : null);
+  const [Email, setEmail] = useState(user ? user.email : null);
+  const [PhoneNumber, setPhoneNumber] = useState(user ? user.phonenumber : null);
+  const [City, setCity] = useState(user ? user.city : null);
 
   const handleFullName = (e) => {
     setFullName(e.target.value);

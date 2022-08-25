@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../../src/Components/css/Login.css";
 import SignButton from './../../Components/common/SignButton';
-import NavBar from "../../Components/NavBar/NavBar"
-import Input from "../../Components/common/Input";;
+import NavBar from "../../Components/NavBar/NavBar";
+import Input from "../../Components/common/Input";
+import ButtomLinkList from "../../Components/common/ButtomLinkList"
+import httpService from "../../services/httpService";
+import config from '../../config.json';
+import { toast } from 'react-toastify';
+import checkLogginIn from './../../utils/checkLogginIn';
 
 function Login() {
   const navigate = useNavigate();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  useEffect(() => {
-    if (localStorage.getItem("user-info")) {
-      navigate("/");
-    }
-  }, []);
+
+  checkLogginIn.redirectToHome();
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -25,26 +26,23 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    // let body = {
-    //   email: Email,
-    //   password: Password,
-    // };
-    // const detail = {
-    //   method: "post",
-    //   responseType: "json",
-    //   url: `http://127.0.0.1:8000/api/login`,
-    //   data: body,
-    // };
-    // axios(detail)
-    //   .then((response) => {
-    //     localStorage.setItem("user-info", JSON.stringify(response));
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-    console.log('Logged in!')
+  const handleLogin = async () => {
+    let body = {
+      email: Email,
+      password: Password,
+    };
+    
+    let response;
+
+    try {
+      response = await httpService.post(`${config.apiUrl}/login`, body);
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/");
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
+    
   };
   return (
     <React.Fragment>
@@ -82,20 +80,14 @@ function Login() {
                 onClick={handleLogin}
               />
             </div>
-            <div id="bottom-links">
-              <ul>
-                <li>
-                  <NavLink className="bottom-link" to="/forget-password">
-                    نسيت كلمة المرور؟
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="bottom-link" to="/register">
-                    إنشاء حساب
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
+
+            <ButtomLinkList
+              links = {[ 
+                {path: "/forget-password", label: "نسيت كلمة المرور؟"},
+                {path: "/register", label: "إنشاء حساب"},
+              ]}
+            />
+
           </div>
 
           <div id="login-img-container">

@@ -1,13 +1,14 @@
 import React from "react";
 import "../css/NavBar.css";
 import { NavLink } from "react-router-dom";
-import logout from "../../utils/logout";
 import icons from "./Icons";
+
 
 const Navbar = () => {
   let userInfo = JSON.parse(localStorage.getItem("user-info"));
 
   let user = userInfo ? userInfo.data.user : null;
+  console.log(user)
 
   return (
     <nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -32,7 +33,7 @@ const Navbar = () => {
           {userInfo ? (
             <>
               <li key="user" className="nav-item">
-                <NavLink className="nav-link" to="/user" exact>
+                <NavLink className="nav-link" to="/user">
                   {user
                     ? user.fullname.split(" ")[0]
                       ? user.fullname.split(" ")[0]
@@ -43,22 +44,21 @@ const Navbar = () => {
               </li>
 
               <li key="logout" className="nav-item nav-item-middle">
-                <a href="/" onClick={logout} className="nav-link" to="/">
-                  تسجيل الخروج {icons.SignOut}
-
-                </a>
+                <NavLink className="nav-link" to="/logout">
+                  تسجيل دخول {icons.SignOut}
+                </NavLink>
               </li>
             </>
           ) : (
             <>
               <li key="register" className="nav-item">
-                <NavLink className="nav-link" to="/register" exact>
+                <NavLink className="nav-link" to="/register">
                   إنشاء حساب {icons.SignUp}
                 </NavLink>
               </li>
 
               <li key="login" className="nav-item nav-item-middle">
-                <NavLink className="nav-link" to="/login" exact>
+                <NavLink className="nav-link" to="/login">
                   تسجيل دخول {icons.SignIn}
                 </NavLink>
               </li>
@@ -66,24 +66,24 @@ const Navbar = () => {
           )}
 
           <li key="requests" className="nav-item">
-            <NavLink className="nav-link" to="/requests" exact>
+            <NavLink className="nav-link" to="/requests">
               الطلبات {icons.Requests}
             </NavLink>
           </li>
           <li key="offers" className="nav-item">
-            <NavLink className="nav-link" to="/offers" exact>
+            <NavLink className="nav-link" to="/offers">
               الخدمات {icons.Services}
             </NavLink>
           </li>
 
           <li key="homepage" className="nav-item ">
-            <NavLink className=" nav-link" to="/" exact>
+            <NavLink className=" nav-link" to="/">
               الصفحة الرئيسية {icons.Home}
             </NavLink>
           </li>
         </ul>
       </div>
-      <NavLink key="logo" className="navbar-brand navbar-logo" to="" exact>
+      <NavLink key="logo" className="navbar-brand navbar-logo" to="">
         الأجر
       </NavLink>
     </nav>

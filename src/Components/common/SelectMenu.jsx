@@ -18,7 +18,7 @@ const SelectMenu = (props) => {
                 name={selectName}
                 className={selectClass}
                 onChange={onChange}
-                value={selectValue}
+                defaultValue={selectValue}
             >
                 <option value="" disabled selected hidden>
                     {firstOption}
