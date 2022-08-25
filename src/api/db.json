@@ -1,12 +1,12 @@
 {
   "users": [
     {
-      "email": "ahmed.raad.kadhim@gmail.com",
+      "email": "ahmed.raad@gmail.com",
       "password": "$2a$10$L66ScuCsiUKSD7QE2seCFOPYtr10dv2QNJgNd56YezJ9X4b96eoau",
-      "fullname": "Ahmed Naser",
+      "fullname": "Ahmed",
       "job": "asass",
       "account_type": "حساب عادي",
-      "city": "بابل",
+      "city": "نينوى",
       "phonenumber": "7777777",
       "id": 1
     }

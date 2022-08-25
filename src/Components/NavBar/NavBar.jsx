@@ -8,7 +8,6 @@ const Navbar = () => {
   let userInfo = JSON.parse(localStorage.getItem("user-info"));
 
   let user = userInfo ? userInfo.data.user : null;
-  console.log(user)
 
   return (
     <nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -23,6 +22,7 @@ const Navbar = () => {
       >
         <i className="fas fa-bars text-white"></i>
       </button>
+      
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
           <div className="hori-selector">

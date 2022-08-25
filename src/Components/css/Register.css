@@ -32,43 +32,6 @@
   margin-right: 40px;
 }
 
-.input {
-  border-radius: 5px;
-  height: 40px;
-  border: 1px solid #000;
-  padding: 5px;
-}
-
-.long-input {
-  width: 460px;
-}
-
-.short-input {
-  width: 220px;
-  margin-left: 20px;
-}
-
-.register-select {
-  text-align: center;
-  font-weight: 600;
-  height: 40px;
-  font-size: 28px;
-  border-color: #000;
-  background-color: #ffffff;
-  box-shadow: none;
-  border-radius: 5px;
-  text-overflow: ellipsis;
-}
-
-.register-select option {
-  text-overflow: ellipsis;
-}
-
-.register-select:hover {
-  border: 1px solid#000;
-  box-shadow: none;
-}
-
 .account-type {
   font-family: "Arabic Typesetting";
   font-size: 30px;
@@ -128,31 +91,9 @@
     padding: 20px;
   }
 
-  .input {
-    height: 30px;
-  }
-
-  .long-input {
-    width: 400px;
-  }
-
-  .short-input {
-    width: 190px;
-    margin-left: 20px;
-  }
-
   .account-type {
     font-size: 25px;
     font-weight: 600;
-  }
-
-  .register-select {
-    height: 30px;
-    font-size: 25px;
-  }
-
-  .register-select option {
-    font-size: 20px;
   }
 
   .sign-btn {
@@ -210,33 +151,7 @@
   #register-fields {
     margin-right: 5%;
   }
-
-  .input {
-    height: 50%;
-    border: 1px solid #000;
-    padding: 5px;
-  }
-
-  .long-input {
-    width: 300px;
-  }
-
-  .short-input {
-    width: 140px;
-    margin-left: 20px;
-  }
-
-  .register-select {
-    height: 50%;
-    font-size: 120%;
-  }
-
-  .register-select:hover,
-  .register-select:focus {
-    border: 1px solid#000;
-    box-shadow: none;
-  }
-
+  
   .account-type {
     font-size: 110%;
     font-weight: 800;

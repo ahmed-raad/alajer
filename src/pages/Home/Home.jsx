@@ -6,20 +6,20 @@ import CarouselPeople from './../../Components/Home/CarouselPeople';
 
 class Home extends Component {
   render() {
-    return (
-      <React.Fragment>
-        <Navbar />
-        <section id="sec1">
-          <Hero />
-        </section>
-        <section id="sec2">
-          <CarouselSkills />
-        </section>
-        <section id="sec3">
-          <CarouselPeople />
-        </section>
-      </React.Fragment>
-    );
+      return (
+        <React.Fragment>
+          <Navbar />
+          <section id="sec1">
+            <Hero />
+          </section>
+          <section id="sec2">
+            <CarouselSkills />
+          </section>
+          <section id="sec3">
+            <CarouselPeople />
+          </section>
+        </React.Fragment>
+      );
   }
 }
 

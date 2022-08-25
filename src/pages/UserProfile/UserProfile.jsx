@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Input from "../../Components/common/Input";
+import SelectMenu from './../../Components/common/SelectMenu';
+import SignButton from './../../Components/common/SignButton';
 import Navbar from "../../Components/NavBar/NavBar";
 import "../../Components/css/UserProfile.css";
-import axios from "axios";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import options from "../../utils/cityOptions";
 import checkLogginIn from './../../utils/checkLogginIn';
+import httpService from "../../services/httpService";
+import config from '../../config.json';
+import { toast } from 'react-toastify';
 
 
 function UserProfile() {
@@ -13,9 +18,10 @@ function UserProfile() {
   checkLogginIn.redirectToLogin();
 
   const navigate = useNavigate();
-  let userInfo = JSON.parse(localStorage.getItem("user-info"));
-  
-  let user = userInfo ? userInfo.data.user : null;
+
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const accessToken = userInfo ? userInfo.data.accessToken : null;
+  const user = userInfo ? userInfo.data.user : null;
 
   const [FullName, setFullName] = useState(user ? user.fullname : null);
   const [Job, setJob] = useState(user ? user.job : null);
@@ -43,7 +49,8 @@ function UserProfile() {
     setCity(e.target.value);
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
+    e.preventDefault()
     let body = {
       fullname: FullName,
       job: Job,
@@ -52,25 +59,25 @@ function UserProfile() {
       phonenumber: PhoneNumber,
     };
 
-    e.preventDefault();
-    const url = "http://127.0.0.1:8000/api/user_update?_method=PUT";
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
+    const headers =  {
+      'Authorization': `Bearer ${accessToken}`,
     };
-    axios
-      .post(url, body, config)
-      //axios.put did not work !!
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        navigate("/user");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+
+    try {
+      let response = await httpService.patch(`${config.apiUrl}/users/${user.id}`, body, {headers});
+      let new_user = {...response.data}
+      delete new_user.password;
+      response.accessToken = accessToken;
+      response.data = {accessToken: accessToken, user: new_user};
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/user");
+      
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
   };
+
 
   return (
     <React.Fragment>
@@ -88,77 +95,61 @@ function UserProfile() {
             </div>
           </div>
           <form id="user-form">
-            <div className="user-item">
-              <label>
-                <p>الأسم الكامل:</p>
-                <input
-                  name="fullname"
-                  className="short-input input"
-                  type="text"
-                  onChange={handleFullName}
-                  value={FullName}
-                  required
-                />
-              </label>
-              <label>
-                <p>العنوان الوظيفي:</p>
-                <input
-                  name="job"
-                  className="short-input input"
-                  type="text"
-                  onChange={handleJob}
-                  value={Job}
-                  required
-                />
-              </label>
+            <div className="sign-item">
+              <Input
+                inputName="fullname"
+                inputValue={FullName}
+                inputLabel="الأسم الكامل:"
+                inputClass="short-input input"
+                onChange={handleFullName}
+              />
+              <Input
+                inputName="job"
+                inputValue={Job}
+                inputLabel="العنوان الوظيفي:"
+                inputClass="short-input input"
+                onChange={handleJob}
+              />
             </div>
 
-            <div className="user-item">
-              <label>
-                <p>البريد الالكتروني:</p>
-                <input
-                  className="long-input input"
-                  type="email"
-                  onChange={handleEmail}
-                  value={Email}
-                  required
-                />
-              </label>
+            <div className="sign-item">
+              <Input
+                inputName="email"
+                inputValue={Email}
+                inputLabel="البريد الالكتروني:"
+                inputClass="long-input input"
+                inputType="email"
+                onChange={handleEmail}
+              />
             </div>
 
-            <div className="user-item">
-              <label>
-                <p>رقم الهاتف:</p>
-                <input
-                  name="phonenumber"
-                  className="short-input input"
-                  type="tel"
-                  onChange={handlePhoneNumber}
-                  value={PhoneNumber}
-                  required
-                />
-              </label>
-              <label>
-                <p>السكن:</p>
-                <select
-                  name="city"
-                  className="short-input user-select"
-                  onChange={handleCity}
-                  value={City}
-                >
-                  {options.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-              </label>
+            <div className="sign-item">
+              <Input
+                inputName="phonenumber"
+                inputValue={PhoneNumber}
+                inputLabel="رقم الهاتف:"
+                inputClass="short-input input"
+                inputType="tel"
+                onChange={handlePhoneNumber}
+              />
+
+              <SelectMenu
+                selectName="city"
+                selectValue={City}
+                selectLabel="السكن:"
+                selectClass="short-input register-select"
+                firstOption="اختر المحافظة التي تسكن فيها"
+                options={options}
+                onChange={handleCity}
+              />
             </div>
 
-            <div className="user-item">
-              <button id="user-button" onClick={handleChange} type="submit">
-                حفظ التغييرات{" "}
-              </button>
+            <div>
+              <SignButton 
+                btnLabel="حفظ التغييرات"
+                onClick={handleChange}
+                btnType="submit"
+              />
             </div>
 
           </form>

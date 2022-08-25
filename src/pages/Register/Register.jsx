@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import options from "../../utils/cityOptions";
 import httpService from "../../services/httpService";
 import checkLogginIn from './../../utils/checkLogginIn';
+import { toast } from 'react-toastify';
 import config from '../../config.json';
 
 import "../../../src/Components/css/Register.css";
@@ -69,9 +70,15 @@ function Register() {
       phonenumber: PhoneNumber,
     };
 
-    const {data: response} = await httpService.post(`${config.apiUrl}/register`, body);
-    localStorage.setItem("user-info", JSON.stringify(response));
-    navigate("/");
+    try {
+      const {data: response} = await httpService.post(`${config.apiUrl}/register`, body);
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/");
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
+
   };
   return (
     <React.Fragment>
