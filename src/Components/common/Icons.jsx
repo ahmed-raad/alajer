@@ -8,6 +8,10 @@ import {
   faHome,
   faUser,
   faSignOut,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
+  faPlusCircle,
+  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default {
@@ -18,4 +22,10 @@ export default {
     Home: <FontAwesomeIcon icon={faHome} />,
     User: <FontAwesomeIcon icon={faUser} />,
     SignOut: <FontAwesomeIcon icon={faSignOut} />,
+      
+    AngleDoubleLeft: <FontAwesomeIcon icon={faAngleDoubleLeft} />,
+    AngleDoubleRight: <FontAwesomeIcon icon={faAngleDoubleRight} />,
+    PlusCircle: <FontAwesomeIcon icon={faPlusCircle} />,
+    PaperPlane: <FontAwesomeIcon icon={faPaperPlane} />,
+
 }

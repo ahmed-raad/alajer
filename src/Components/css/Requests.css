@@ -1,8 +1,8 @@
-#requests_page {
+.comments_page {
   direction: rtl;
 }
 
-#circle_span {
+.adding_circle {
   margin: 70px;
 }
 
@@ -18,7 +18,7 @@ a.plus_sign svg:hover {
   color: #398ab9;
 }
 
-.request {
+.comment {
   border-radius: 10px;
   background-color: #ffffff;
   display: grid;
@@ -32,18 +32,18 @@ a.plus_sign svg:hover {
   box-shadow: rgba(99, 99, 99, 0.2) 2px 2px 8px 2px;
 }
 
-.request div {
+.comment div {
   text-align: center;
   margin: 20px;
 }
 
-.request_person {
+.comment_person {
   width: 70%;
   height: 100%;
   padding: 10px;
 }
 
-.request div h3 {
+.comment div h3 {
   font-size: 26px;
   font-weight: 600;
   font-family: "Arabic Typesetting";
@@ -54,7 +54,7 @@ a.plus_sign svg:hover {
   margin-top: 10px !important;
 }
 
-.request img {
+.comment img {
   height: 70px;
   width: 70px;
   border-radius: 50%;
@@ -63,14 +63,14 @@ a.plus_sign svg:hover {
   margin-right: auto;
 }
 
-.request_text {
+.comment_text {
   width: 1000px;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.request_text p {
+.comment_text p {
   text-align: justify;
   height: 30%;
   font-family: "TheSans";
@@ -78,12 +78,12 @@ a.plus_sign svg:hover {
   font-weight: normal;
 }
 
-.request_send {
+.comment_send {
   width: 50px;
   height: 50px;
 }
 
-.request_send a {
+.comment_send a {
   top: -20px;
   position: relative;
 }
@@ -128,47 +128,47 @@ a.plus_sign svg:hover {
 }
 
 @media (min-width: 920px) and (max-width: 1280px) {
-  #requests_page {
+  #comments_page {
     overflow-x: hidden;
   }
 
-  #circle_span {
+  .adding_circle {
     margin: 50px;
   }
 
-  .request {
+  .comment {
     width: 95%;
     height: 100%;
     margin: 20px auto;
   }
 
-  .request div {
+  .comment div {
     text-align: center;
     margin: 20px 0px;
   }
 
-  .request .request_person {
+  .comment .comment_person {
     width: 100%;
     height: 150px;
     margin: auto;
     padding: 0px 25px;
   }
 
-  .request div h3 {
+  .comment div h3 {
     font-size: 130%;
   }
 
-  .request .request_text {
+  .comment .comment_text {
     width: 100%;
     padding: 15px;
   }
 
-  .request .request_text p {
+  .comment .comment_text p {
     font-size: 100%;
     font-weight: normal;
   }
 
-  .request .request_send {
+  .comment .comment_send {
     width: 50px;
     height: 50px;
     margin: 20px;
@@ -176,61 +176,61 @@ a.plus_sign svg:hover {
 }
 
 @media (min-width: 660px) and (max-width: 920px) {
-  #requests_page {
+  #comments_page {
     overflow-x: hidden;
   }
 
-  #circle_span {
+  .adding_circle {
     margin: 30px;
   }
 
-  .request {
+  .comment {
     width: 95%;
     height: 100%;
     margin: 20px auto;
   }
 
-  .request div {
+  .comment div {
     text-align: center;
     margin: 20px 0px;
   }
 
-  .request .request_person {
+  .comment .comment_person {
     width: 100%;
     height: 150px;
     margin: auto;
     padding: 0px 25px;
   }
 
-  .request div h3 {
+  .comment div h3 {
     font-size: 130%;
   }
 
-  .request .request_text {
+  .comment .comment_text {
     width: 100%;
     padding: 15px;
   }
 
-  .request .request_text p {
+  .comment .comment_text p {
     font-size: 80%;
     font-weight: normal;
   }
 
-  .request .request_send {
+  .comment .comment_send {
     margin: 10px;
   }
 }
 
 @media (max-width: 480px) {
-  #requests_page {
+  #comments_page {
     overflow-x: hidden;
   }
 
-  #circle_span {
+  .adding_circle {
     margin: 20px;
   }
 
-  .request {
+  .comment {
     width: 95%;
     padding: 15px;
     height: 100%;
@@ -239,33 +239,33 @@ a.plus_sign svg:hover {
     grid-template-columns: auto;
   }
 
-  .request div {
+  .comment div {
     text-align: center;
     margin: 20px 0px;
   }
 
-  .request .request_person {
+  .comment .comment_person {
     width: 100%;
     height: 150px;
     margin: auto;
     padding: 0px 25px;
   }
 
-  .request div h3 {
+  .comment div h3 {
     font-size: 130%;
   }
 
-  .request .request_text {
+  .comment .comment_text {
     width: 100%;
     padding: 15px;
   }
 
-  .request .request_text p {
+  .comment .comment_text p {
     font-size: 80%;
     font-weight: normal;
   }
 
-  .request .request_send {
+  .comment .comment_send {
     margin: 10px auto;
   }
 }

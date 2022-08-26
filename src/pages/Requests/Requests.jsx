@@ -1,96 +1,77 @@
 import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
+import checkLogginIn from './../../utils/checkLogginIn';
+import httpService from "../../services/httpService";
+import config from '../../config.json';
 import "../../Components/css/Requests.css";
-import data from "../../data.json";
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDoubleLeft,
-  faAngleDoubleRight,
-  faPlusCircle,
-  faPaperPlane,
-} from "@fortawesome/free-solid-svg-icons";
+
 import Navbar from "../../Components/NavBar/NavBar";
-import axios from "axios";
+import { toast } from 'react-toastify';
+import CommentPage from "../../Components/common/CommentPage";
+
 
 function Requests() {
-  const [users, setUsers] = useState(data.slice(0, 90));
+  checkLogginIn.redirectToLogin();
   const [pageNumber, setPageNumber] = useState(0);
   const [requests, setRequests] = useState([]);
-
+  
   const usersPerPage = 10;
-  const pagesVisited = pageNumber * usersPerPage;
+  const pageCount = Math.ceil(requests.length / usersPerPage);
+  const firstInPage = pageNumber * usersPerPage;
 
-  useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/requests").then((response) => {
-      setRequests(response.data.data);
-    });
-  }, []);
 
-  function addDefaultSrc(ev) {
-    ev.target.src = "images/avatar.png";
+  
+  const getUsers = () => {
+    return httpService.get(`${config.apiUrl}/users`);
+  };
+
+  const getRequests = () => {
+      return httpService.get(`${config.apiUrl}/requests`);
   }
 
-  const displayUsers = requests
-    .slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((request) => {
-      return (
-        <div key={request.id} className="request">
-          <div className="request_person">
-            <img
-              src="images/avatar.png"
-              onError={addDefaultSrc}
-              alt="صورة المستخدم"
-            />
-            <h3 className="name">{request.author_name}</h3>
-            <h3 className="job">{request.author_job}</h3>
-          </div>
-          <div className="request_text">
-            <p>{request.description}</p>
-          </div>
-          <div className="request_send">
-            <NavLink className="plus_sign" to="/send_request" exact>
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </NavLink>
-          </div>
-        </div>
-      );
-    });
+  useEffect(async () => {    
+    try {
+    let promise = await Promise.all([
+      getUsers(),
+      getRequests(),
+    ]);
 
-  const pageCount = Math.ceil(requests.length / usersPerPage);
+    const allUsers = promise[0].data;
+    const allRequests = promise[1].data
 
-  const changePage = ({ selected }) => {
+    let requests = allRequests.map(req => {
+      const author = allUsers.find(u => u.id === req.authorId);
+      req.authorName = author.fullname;
+      req.authorJob = author.job;
+      req.authorEmail = author.email;
+      return req;
+    })
+    setRequests(requests);
+
+    } catch (er) {
+      const responseMsg = er.response? er.response.statusText : er.response;
+      toast.error(responseMsg);
+    }
+  }, []);
+
+
+
+  const handlePageChange = ({ selected }) => {
     setPageNumber(selected);
   };
 
   return (
     <React.Fragment>
       <Navbar />
-      <div id="requests_page">
-        <span id="circle_span">
-          <NavLink className="plus_sign" to="/new_request" exact>
-            <FontAwesomeIcon icon={faPlusCircle} />
-          </NavLink>
-        </span>
 
-        <div className="App">
-          {displayUsers}
-          <ReactPaginate
-            previousLabel={<FontAwesomeIcon icon={faAngleDoubleRight} />}
-            nextLabel={<FontAwesomeIcon icon={faAngleDoubleLeft} />}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"paginationBttns"}
-            previousLinkClassName={"arrowBtn"}
-            nextLinkClassName={"arrowBtn"}
-            disabledClassName={"paginationDisabled"}
-            activeClassName={"paginationActive"}
-            pageLinkClassName={"paginationBtn"}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={2}
-          />
-        </div>
-      </div>
+      <CommentPage
+        newCommentLink="/new_request"
+        comments={requests}
+        firstInPage={firstInPage}
+        usersPerPage={usersPerPage}
+        pageCount={pageCount}
+        onPageChange={handlePageChange}
+      />
+
     </React.Fragment>
   );
 }

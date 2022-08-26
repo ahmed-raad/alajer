@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/NavBar.css";
 import { NavLink } from "react-router-dom";
-import icons from "./Icons";
+import icons from "./../common/Icons";
 
 
 const Navbar = () => {
@@ -45,7 +45,7 @@ const Navbar = () => {
 
               <li key="logout" className="nav-item nav-item-middle">
                 <NavLink className="nav-link" to="/logout">
-                  تسجيل دخول {icons.SignOut}
+                  تسجيل خروج {icons.SignOut}
                 </NavLink>
               </li>
             </>

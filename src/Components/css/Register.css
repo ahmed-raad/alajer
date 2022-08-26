@@ -51,23 +51,6 @@
   margin-left: 8px;
 }
 
-.sign-btn {
-  background-color: #1d1d1d;
-  color: #ffffff;
-  font-family: "Arabic Typesetting";
-  font-size: 30px;
-  font-weight: 500;
-  width: 460px;
-  margin: 30px 0px;
-  border-radius: 10px;
-  border: none;
-}
-
-.sign-btn:hover {
-  background-color: #000000;
-  font-weight: 900;
-}
-
 #register-img-container {
   height: 440px;
   width: 440px;
@@ -94,11 +77,6 @@
   .account-type {
     font-size: 25px;
     font-weight: 600;
-  }
-
-  .sign-btn {
-    font-size: 25px;
-    width: 400px;
   }
 
   #register-img-container {
@@ -174,13 +152,6 @@
   .account-type label {
     font-size: 120%;
     margin: 0px;
-  }
-
-  .sign-btn {
-    font-size: 100%;
-    width: 300px;
-    padding: 5px;
-    height: 100%;
   }
 
   #register-img-container {

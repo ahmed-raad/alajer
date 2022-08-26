@@ -11,7 +11,7 @@ const SignButton = props => {
     const {btnLabel, btnClass="", onClick, btnType="button"} = props;
     return ( 
             <button
-                className={`sign-btn ${btnClass} btn`}
+                className={`sign-btn ${btnClass}`}
                 type={btnType}
                 onClick={onClick}
             >
