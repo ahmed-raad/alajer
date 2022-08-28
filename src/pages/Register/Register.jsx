@@ -6,7 +6,6 @@ import checkLogginIn from './../../utils/checkLogginIn';
 import { toast } from 'react-toastify';
 import config from '../../config.json';
 
-import "../../../src/Components/css/Register.css";
 import Navbar from "../../Components/NavBar/NavBar";
 import Input from "../../Components/common/Input";
 import SelectMenu from './../../Components/common/SelectMenu';
@@ -83,12 +82,11 @@ function Register() {
   return (
     <React.Fragment>
       <Navbar />
-      <div id="register-wrapper">
+      <div className="sign-wrapper">
         <h1>إنشاء حساب جديد</h1>
-        <form id="register-form">
-          <div id="register-fields">
+        <form className="sign-form">
+          <div>  
             <div className="sign-item">
-
               <Input
                 inputName="fullname"
                 inputValue={FullName}
@@ -104,7 +102,6 @@ function Register() {
                 inputClass="short-input input"
                 onChange={handleJob}
               />
-
             </div>
 
             <div className="account-type">
@@ -183,8 +180,8 @@ function Register() {
             
           </div>
 
-          <div id="register-img-container">
-            <img id="register-img" src="images/new-user.jpg" />
+          <div id="sign-img-container">
+            <img className="sign-img" src="images/new-user.jpg" />
           </div>
         </form>
       </div>

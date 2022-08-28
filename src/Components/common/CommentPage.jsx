@@ -32,12 +32,12 @@ const CommentPage = props => {
                     nextLabel={icons.AngleDoubleLeft}
                     pageCount={pageCount}
                     onPageChange={onPageChange}
-                    containerClassName={"paginationBttns"}
+                    containerClassName={"paginateList"}
                     previousLinkClassName={"arrowBtn"}
                     nextLinkClassName={"arrowBtn"}
                     disabledClassName={"paginationDisabled"}
                     activeClassName={"paginationActive"}
-                    pageLinkClassName={"paginationBtn"}
+                    pageLinkClassName={"paginateBtn"}
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={2}
                 />

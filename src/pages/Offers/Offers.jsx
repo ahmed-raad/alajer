@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import checkLogginIn from './../../utils/checkLogginIn';
 import httpService from "../../services/httpService";
 import config from '../../config.json';
 import Navbar from "../../Components/NavBar/NavBar";
@@ -7,7 +6,6 @@ import CommentPage from "../../Components/common/CommentPage";
 import { toast } from 'react-toastify';
 
 function Offers() {
-  checkLogginIn.redirectToLogin();
   const [pageNumber, setPageNumber] = useState(0);
   const [offers, setOffers] = useState([]);
 

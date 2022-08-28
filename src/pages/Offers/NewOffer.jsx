@@ -1,18 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../src/Components/css/NewRequest.css";
 import Navbar from "../../Components/NavBar/NavBar";
+import NewComment from "../../Components/common/newComment";
+import checkLogginIn from './../../utils/checkLogginIn';
 
 function NewOffer() {
+  checkLogginIn.redirectToLogin();
   const user = JSON.parse(localStorage.getItem("user-info"));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!localStorage.getItem("user-info")) {
-      navigate("/login");
-    }
-  }, []);
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
@@ -49,49 +45,18 @@ function NewOffer() {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="new-wrapper">
-        <h1>نشر خدمة جديدة</h1>
-        <form className="new-form">
-          <div className="new-fields">
-            <div className="new-item">
-              <label>
-                <p className="new-title">عنوان الخدمة: &nbsp;</p>
-                <input
-                  name="title"
-                  type="text"
-                  value={Title}
-                  onChange={handleTitle}
-                  required
-                />
-              </label>
-            </div>
+      
+      <NewComment
+        pageTitle="نشر خدمة جديدة"
+        commentTitle="عنوان الخدمة: &nbsp;"
+        commentDescr="* يرجى كتابة تفاصيل الخدمات التي تعرضها و مدى مهرتك فيها بشكل دقيق"
+        Title={Title}
+        Description={Description}
+        handleTitle={handleTitle}
+        handleDescription={handleDescription}
+        handleSubmit={handleSubmit}
+      />
 
-            <div className="new-item">
-              <label>
-                <p className="new-detail">
-                  * يرجى كتابة تفاصيل الخدمات التي تعرضها و مدى مهرتك فيها بشكل
-                  دقيق.
-                </p>
-                <textarea
-                  name="description"
-                  value={Description}
-                  onChange={handleDescription}
-                  required
-                ></textarea>
-              </label>
-            </div>
-            <div>
-              <button
-                className="new-button"
-                onClick={handleSubmit}
-                type="button"
-              >
-                نشر الطلب
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
     </React.Fragment>
   );
 }

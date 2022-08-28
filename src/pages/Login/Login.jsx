@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../src/Components/css/Login.css";
 import SignButton from './../../Components/common/SignButton';
 import NavBar from "../../Components/NavBar/NavBar";
 import Input from "../../Components/common/Input";
@@ -47,10 +46,10 @@ function Login() {
   return (
     <React.Fragment>
       <NavBar />
-      <div id="login-wrapper">
+      <div className="sign-wrapper">
         <h1>تسجيل الدخول</h1>
-        <form id="login-form">
-          <div id="login-fields">
+        <form className="sign-form">
+          <div>
 
             <div className="sign-item">
               <Input
@@ -90,8 +89,8 @@ function Login() {
 
           </div>
 
-          <div id="login-img-container">
-            <img id="login-img" src="images/login.jpg" />
+          <div id="sign-img-container">
+            <img className="sign-img" src="images/login.jpg" />
           </div>
         </form>
       </div>

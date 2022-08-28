@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 
 const AddingCircleBtn = ({link}) => {
     return (
-        <span className="adding_circle">
-          <NavLink className="plus_sign" to={link}>
+        <div className="adding_circle">
+          <NavLink to={link}>
             {icons.PlusCircle}
           </NavLink>
-        </span>        
+        </div>        
     );
 }
  

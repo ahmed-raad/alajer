@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import checkLogginIn from './../../utils/checkLogginIn';
 import httpService from "../../services/httpService";
 import config from '../../config.json';
-import "../../Components/css/Requests.css";
 
 import Navbar from "../../Components/NavBar/NavBar";
 import { toast } from 'react-toastify';
@@ -10,7 +8,6 @@ import CommentPage from "../../Components/common/CommentPage";
 
 
 function Requests() {
-  checkLogginIn.redirectToLogin();
   const [pageNumber, setPageNumber] = useState(0);
   const [requests, setRequests] = useState([]);
   

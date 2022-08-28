@@ -3,7 +3,6 @@ import Input from "../../Components/common/Input";
 import SelectMenu from './../../Components/common/SelectMenu';
 import SignButton from './../../Components/common/SignButton';
 import Navbar from "../../Components/NavBar/NavBar";
-import "../../Components/css/UserProfile.css";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import options from "../../utils/cityOptions";
