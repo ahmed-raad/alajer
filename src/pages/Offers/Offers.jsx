@@ -29,7 +29,7 @@ function Offers() {
     ]);
 
     const allUsers = promise[0].data;
-    const allOffers = promise[1].data
+    const allOffers = promise[1].data.sort((a, b) => b.id - a.id);
 
     let offers = allOffers.map(off => {
       const author = allUsers.find(u => u.id === off.authorId);

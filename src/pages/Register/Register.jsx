@@ -79,6 +79,7 @@ function Register() {
     }
 
   };
+  
   return (
     <React.Fragment>
       <Navbar />

@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ *
+ *
+ * @param {*} {pageTitle, commentTitle, commentDescr, Title, Description, handleTitle, handleDescription, handleSubmit}
+ * @return {*} 
+ */
 const NewComment = ({pageTitle, commentTitle, commentDescr, Title, Description, handleTitle, handleDescription, handleSubmit}) => {
     return (
       <div className="new-wrapper">
@@ -7,7 +13,6 @@ const NewComment = ({pageTitle, commentTitle, commentDescr, Title, Description, 
         <form className="new-form">
 
             <div className="new-item">
-              <label>
                 <p className="new-title">{commentTitle}</p>
                 <input
                   name="title"
@@ -16,7 +21,6 @@ const NewComment = ({pageTitle, commentTitle, commentDescr, Title, Description, 
                   onChange={handleTitle}
                   required
                 />
-              </label>
             </div>
 
             <div className="new-item">

@@ -27,22 +27,22 @@ function Requests() {
 
   useEffect(async () => {    
     try {
-    let promise = await Promise.all([
-      getUsers(),
-      getRequests(),
-    ]);
+      let promise = await Promise.all([
+        getUsers(),
+        getRequests(),
+      ]);
+      
+      const allUsers = promise[0].data;
+      const allRequests = promise[1].data.sort((a, b) => b.id - a.id);
 
-    const allUsers = promise[0].data;
-    const allRequests = promise[1].data
-
-    let requests = allRequests.map(req => {
-      const author = allUsers.find(u => u.id === req.authorId);
-      req.authorName = author.fullname;
-      req.authorJob = author.job;
-      req.authorEmail = author.email;
-      return req;
-    })
-    setRequests(requests);
+      let requests = allRequests.map(req => {
+        const author = allUsers.find(u => u.id === req.authorId);
+        req.authorName = author.fullname;
+        req.authorJob = author.job;
+        req.authorEmail = author.email;
+        return req;
+      })
+      setRequests(requests);
 
     } catch (er) {
       const responseMsg = er.response? er.response.statusText : er.response;
@@ -55,7 +55,7 @@ function Requests() {
   const handlePageChange = ({ selected }) => {
     setPageNumber(selected);
   };
-
+  console.log(requests)
   return (
     <React.Fragment>
       <Navbar />

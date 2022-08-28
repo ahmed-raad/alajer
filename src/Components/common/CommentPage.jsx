@@ -10,7 +10,6 @@ import icons from "./../../Components/common/Icons";
  * @param {*} {newCommentLink, comments, firstInPage, usersPerPage, pageCount, onPageChange}
  * @return {*} 
  */
-
 const CommentPage = props => {
     const {newCommentLink, comments, firstInPage, usersPerPage, pageCount, onPageChange} = props;
     return (

@@ -17,9 +17,7 @@ import Comment from "./Comment";
  * 
  * @return {*} 
  */
-
 const Comments = ({comments, firstInPage, itemsPerPage}) => {
-    console.log(firstInPage)
     return comments
         .slice(firstInPage, firstInPage + itemsPerPage)
         .map(comment => (
