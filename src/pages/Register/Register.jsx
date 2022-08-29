@@ -164,7 +164,7 @@ function Register() {
                 selectName="city"
                 selectValue={City}
                 selectLabel="السكن:"
-                selectClass="short-input register-select"
+                selectClass="short-input select"
                 firstOption="اختر المحافظة التي تسكن فيها"
                 options={options}
                 onChange={handleCity}
@@ -181,7 +181,7 @@ function Register() {
             
           </div>
 
-          <div id="sign-img-container">
+          <div className="sign-img-container">
             <img className="sign-img" src="images/new-user.jpg" />
           </div>
         </form>

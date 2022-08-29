@@ -1,5 +1,4 @@
 import React from "react";
-import "../css/NavBar.css";
 import { NavLink } from "react-router-dom";
 import icons from "./../common/Icons";
 
@@ -25,67 +24,67 @@ const Navbar = () => {
       
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
-          <div className="hori-selector">
-            <div className="left"></div>
-            <div className="right"></div>
-          </div>
-
-          {userInfo ? (
-            <>
-              <li key="user" className="nav-item">
-                <NavLink className="nav-link" to="/user">
-                  {user
-                    ? user.fullname.split(" ")[0]
+          <ul className="sublist-left">
+            {userInfo ? (
+              <>
+                <li key="user" className="nav-item">
+                  <NavLink className="nav-link" to="/user">
+                    {user
                       ? user.fullname.split(" ")[0]
-                      : user.fullname
-                    : ""}{" "}
-                  {icons.User}
-                </NavLink>
-              </li>
+                        ? user.fullname.split(" ")[0]
+                        : user.fullname
+                      : ""}{" "}
+                    {icons.User}
+                  </NavLink>
+                </li>
+                <li key="logout" className="nav-item nav-item-middle">
+                  <NavLink className="nav-link" to="/logout">
+                    تسجيل خروج {icons.SignOut}
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li key="register" className="nav-item">
+                  <NavLink className="nav-link" to="/register">
+                    إنشاء حساب {icons.SignUp}
+                  </NavLink>
+                </li>
+                <li key="login" className="nav-item nav-item-middle">
+                  <NavLink className="nav-link" to="/login">
+                    تسجيل دخول {icons.SignIn}
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
 
-              <li key="logout" className="nav-item nav-item-middle">
-                <NavLink className="nav-link" to="/logout">
-                  تسجيل خروج {icons.SignOut}
-                </NavLink>
-              </li>
-            </>
-          ) : (
-            <>
-              <li key="register" className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  إنشاء حساب {icons.SignUp}
-                </NavLink>
-              </li>
-
-              <li key="login" className="nav-item nav-item-middle">
-                <NavLink className="nav-link" to="/login">
-                  تسجيل دخول {icons.SignIn}
-                </NavLink>
-              </li>
-            </>
-          )}
-
-          <li key="requests" className="nav-item">
-            <NavLink className="nav-link" to="/requests">
-              الطلبات {icons.Requests}
+          <ul className="sublist-middle">
+            <li key="requests" className="nav-item">
+              <NavLink className="nav-link" to="/requests">
+                الطلبات {icons.Requests}
+              </NavLink>
+            </li>
+            <li key="offers" className="nav-item">
+              <NavLink className="nav-link" to="/offers">
+                الخدمات {icons.Services}
+              </NavLink>
+            </li>
+            <li key="homepage" className="nav-item ">
+              <NavLink className=" nav-link" to="/">
+                الصفحة الرئيسية {icons.Home}
+              </NavLink>
+            </li>
+          </ul>
+      
+          <div className="nav-logo-container">
+            <NavLink key="logo" className="navbar-brand navbar-logo" to="/">
+              الأجر
             </NavLink>
-          </li>
-          <li key="offers" className="nav-item">
-            <NavLink className="nav-link" to="/offers">
-              الخدمات {icons.Services}
-            </NavLink>
-          </li>
-
-          <li key="homepage" className="nav-item ">
-            <NavLink className=" nav-link" to="/">
-              الصفحة الرئيسية {icons.Home}
-            </NavLink>
-          </li>
+          </div>
+              
         </ul>
       </div>
-      <NavLink key="logo" className="navbar-brand navbar-logo" to="">
-        الأجر
-      </NavLink>
     </nav>
   );
 };

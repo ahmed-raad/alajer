@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../css/Footer.css";
 import PaymentMethods from "./PaymentMethods";
 import ConatctList from './ContactList';
 import SiteDetails from "./SiteDetails";

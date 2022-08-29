@@ -136,7 +136,7 @@ function UserProfile() {
                 selectName="city"
                 selectValue={City}
                 selectLabel="السكن:"
-                selectClass="short-input register-select"
+                selectClass="short-input select"
                 firstOption="اختر المحافظة التي تسكن فيها"
                 options={options}
                 onChange={handleCity}

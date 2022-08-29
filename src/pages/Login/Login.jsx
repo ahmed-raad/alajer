@@ -10,12 +10,12 @@ import { toast } from 'react-toastify';
 import checkLogginIn from './../../utils/checkLogginIn';
 
 function Login() {
+  checkLogginIn.redirectToHome();
   const navigate = useNavigate();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  checkLogginIn.redirectToHome();
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -89,7 +89,7 @@ function Login() {
 
           </div>
 
-          <div id="sign-img-container">
+          <div className="sign-img-container">
             <img className="sign-img" src="images/login.jpg" />
           </div>
         </form>

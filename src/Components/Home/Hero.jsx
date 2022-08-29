@@ -1,6 +1,5 @@
 import React from "react";
 import GoBtn from "./GoBtn";
-import "../../Components/css/Home.css";
 
 function Hero() {
   return (
