@@ -1,54 +1,39 @@
 import React from "react";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
+import Logout from "./Components/Logout/Logout";
 import Requests from "./pages/Requests/Requests";
 import NewRequest from "./pages/Requests/NewRequest";
 import Offers from "./pages/Offers/Offers";
 import NewOffer from "./pages/Offers/NewOffer";
 import Footer from "./Components/Footer/Footer";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const App = () => {
   return (
     <React.Fragment>
+      <ToastContainer />
       <Router>
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/user" exact>
-              <UserProfile />
-            </Route>
-            <Route path="/register" exact>
-              <Register />
-            </Route>
-            <Route path="/login" exact>
-              <Login />
-            </Route>
-
-            <Route path="/requests" exact>
-              <Requests />
-            </Route>
-            <Route path="/new_request" exact>
-              <NewRequest />
-            </Route>
-            <Route path="/offers" exact>
-              <Offers />
-            </Route>
-            <Route path="/new_offer" exact>
-              <NewOffer />
-            </Route>
-            <Route path="/change_password" exact>
-              <ChangePassword />
-            </Route>
-          </Switch>
-        </main>
+        <Routes>
+          <Route path="/" element={<Home />}  />
+          <Route path="/user" element={<UserProfile />}  />
+          <Route path="/register" element={<Register />}  />
+          <Route path="/login" element={<Login />}  />
+          <Route path="/logout" element={<Logout />}  />
+          <Route path="/requests" element={<Requests />}  />
+          <Route path="/new_request" element={<NewRequest />}  />
+          <Route path="/offers" element={<Offers />}  />
+          <Route path="/new_offer" element={<NewOffer />}  />
+          <Route path="/change_password" element={<ChangePassword />}  />        
+        </Routes>
       </Router>
       <Footer />
     </React.Fragment>

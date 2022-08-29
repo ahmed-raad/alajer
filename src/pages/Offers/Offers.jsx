@@ -1,95 +1,71 @@
 import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
-import "../../Components/css/Offers.css";
-import data from "../../data.json";
-import { NavLink, useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDoubleLeft,
-  faAngleDoubleRight,
-  faPlusCircle,
-  faPaperPlane,
-} from "@fortawesome/free-solid-svg-icons";
+import httpService from "../../services/httpService";
+import config from '../../config.json';
 import Navbar from "../../Components/NavBar/NavBar";
-import axios from "axios";
+import CommentPage from "../../Components/common/CommentPage";
+import { toast } from 'react-toastify';
 
 function Offers() {
   const [pageNumber, setPageNumber] = useState(0);
   const [offers, setOffers] = useState([]);
 
   const usersPerPage = 10;
-  const pagesVisited = pageNumber * usersPerPage;
+  const firstInPage = pageNumber * usersPerPage;
 
-  useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/offers").then((response) => {
-      setOffers(response.data.data);
-    });
-  }, []);
 
-  function addDefaultSrc(ev) {
-    ev.target.src = "images/avatar.png";
+  const getUsers = () => {
+    return httpService.get(`${config.apiUrl}/users`);
+  };
+
+  const getOffers = () => {
+      return httpService.get(`${config.apiUrl}/offers`);
   }
 
-  const displayUsers = offers
-    .slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((offer) => {
-      return (
-        <div key={offer.id} className="offer">
-          <div className="request_person">
-            <img
-              src={offer.author_img}
-              onError={addDefaultSrc}
-              alt="صورة المستخدم"
-            />
-            <h3 className="name">{offer.author_name}</h3>
-            <h3 className="job">{offer.author_job}</h3>
-          </div>
-          <div className="request_text">
-            <p>{offer.description}</p>
-          </div>
-          <div className="request_send">
-            <NavLink className="plus_sign" to="/send_request" exact>
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </NavLink>
-          </div>
-        </div>
-      );
-    });
+  useEffect(async () => {    
+    try {
+    let promise = await Promise.all([
+      getUsers(),
+      getOffers(),
+    ]);
+
+    const allUsers = promise[0].data;
+    const allOffers = promise[1].data.sort((a, b) => b.id - a.id);
+
+    let offers = allOffers.map(off => {
+      const author = allUsers.find(u => u.id === off.authorId);
+      off.authorName = author.fullname;
+      off.authorJob = author.job;
+      off.authorEmail = author.email;
+      return off;
+    })
+    setOffers(offers);
+
+    } catch (er) {
+      const responseMsg = er.response? er.response.statusText : er.response;
+      toast.error(responseMsg);
+    }
+  }, []);
+
 
   const pageCount = Math.ceil(offers.length / usersPerPage);
 
-  const changePage = ({ selected }) => {
+  const handlePageChange = ({ selected }) => {
     setPageNumber(selected);
   };
 
   return (
     <React.Fragment>
       <Navbar />
-      <div id="offers_page">
-        <span id="circle_span">
-          <NavLink className="plus_sign" to="/new_offer" exact>
-            <FontAwesomeIcon icon={faPlusCircle} />
-          </NavLink>
-        </span>
 
-        <div className="App">
-          {displayUsers}
-          <ReactPaginate
-            previousLabel={<FontAwesomeIcon icon={faAngleDoubleRight} />}
-            nextLabel={<FontAwesomeIcon icon={faAngleDoubleLeft} />}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"paginationBttns"}
-            previousLinkClassName={"arrowBtn"}
-            nextLinkClassName={"arrowBtn"}
-            disabledClassName={"paginationDisabled"}
-            activeClassName={"paginationActive"}
-            pageLinkClassName={"paginationBtn"}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={2}
-          />
-        </div>
-      </div>
+      <CommentPage
+        newCommentLink="/new_offer"
+        comments={offers}
+        firstInPage={firstInPage}
+        usersPerPage={usersPerPage}
+        pageCount={pageCount}
+        onPageChange={handlePageChange}
+      />
+
     </React.Fragment>
   );
 }

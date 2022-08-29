@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SignButton from './../../Components/common/SignButton';
 import NavBar from "../../Components/NavBar/NavBar";
-import "../../../src/Components/css/Login.css";
-import axios from "axios";
+import Input from "../../Components/common/Input";
+import ButtomLinkList from "../../Components/common/ButtomLinkList"
+import httpService from "../../services/httpService";
+import config from '../../config.json';
+import { toast } from 'react-toastify';
+import checkLogginIn from './../../utils/checkLogginIn';
 
 function Login() {
+  checkLogginIn.redirectToHome();
+  const navigate = useNavigate();
+
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const history = useHistory();
-  useEffect(() => {
-    if (localStorage.getItem("user-info")) {
-      history.push("/");
-    }
-  }, []);
+
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -23,79 +25,72 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     let body = {
       email: Email,
       password: Password,
     };
-    const detail = {
-      method: "post",
-      responseType: "json",
-      url: `http://127.0.0.1:8000/api/login`,
-      data: body,
-    };
-    axios(detail)
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    
+    let response;
+
+    try {
+      response = await httpService.post(`${config.apiUrl}/login`, body);
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/");
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
+    
   };
   return (
     <React.Fragment>
       <NavBar />
-      <div id="login-wrapper">
+      <div className="sign-wrapper">
         <h1>تسجيل الدخول</h1>
-        <form id="login-form">
-          <div id="login-fields">
-            <div className="login-item">
-              <label>
-                <p>البريد الالكتروني:</p>
-                <input
-                  type="email"
-                  onChange={handleEmail}
-                  value={Email}
-                  required
-                />
-              </label>
+        <form className="sign-form">
+          <div>
+
+            <div className="sign-item">
+              <Input
+                inputName="email"
+                inputValue={Email}
+                inputType="email"
+                inputLabel="البريد الالكتروني:"
+                inputClass="long-input input"
+                onChange={handleEmail}
+              />
             </div>
 
-            <div className="login-item">
-              <label>
-                <p>كلمة السر:</p>
-                <input
-                  type="password"
-                  onChange={handlePassword}
-                  value={Password}
-                  required
-                />
-              </label>
+            <div className="sign-item">
+              <Input
+                inputName="password"
+                inputValue={Password}
+                inputType="password"
+                inputLabel="كلمة السر:"
+                inputClass="long-input input"
+                onChange={handlePassword}
+              />
             </div>
+
             <div>
-              <button id="login-button" type="button" onClick={handleLogin}>
-                تسجيل الدخول
-              </button>
+              <SignButton
+                btnLabel="تسجيل الدخول"
+                onClick={handleLogin}
+              />
             </div>
-            <div id="bottom-links">
-              <ul>
-                <li>
-                  <NavLink className="bottom-link" to="/forget-password">
-                    نسيت كلمة المرور؟
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="bottom-link" to="/register">
-                    إنشاء حساب
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
+
+            <ButtomLinkList
+              links = {[ 
+                {path: "/forget-password", label: "نسيت كلمة المرور؟"},
+                {path: "/register", label: "إنشاء حساب"},
+              ]}
+            />
+
           </div>
 
-          <div id="login-img-container">
-            <img id="login-img" src="images/login.jpg" />
+          <div className="sign-img-container">
+            <img className="sign-img" src="images/login.jpg" />
           </div>
         </form>
       </div>

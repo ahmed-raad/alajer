@@ -1,0 +1,1420 @@
+/* Sign Item */
+.sign-item {
+    display: grid;
+    font-family: "Arabic Typesetting";
+    font-size: 30px;
+    font-weight: 600;
+    grid-template-columns: auto auto;
+    margin-top: 5px;
+    width: 150px;
+}
+
+.sign-item p {
+    margin-bottom: 0px;
+}
+
+.sign-item label {
+    margin: 0px;
+    padding: 0px;
+}
+/* ---------------------------- */
+
+
+/* Input Component */
+.input {
+  border-radius: 5px;
+  height: 40px;
+  border: 1px solid #000;
+  padding: 5px;
+}
+
+.long-input {
+  width: 460px;
+}
+
+.short-input {
+  width: 220px;
+  margin-left: 20px;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  .input {
+    height: 30px;
+  }
+  
+  .long-input {
+    width: 400px;
+  }
+
+  .short-input {
+    width: 190px;
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input {
+    height: 40%;
+    border: 1px solid #000;
+    padding: 5px;
+  }
+
+  .long-input {
+    width: 300px;
+  }
+
+  .short-input {
+    width: 140px;
+    margin-left: 20px;
+  }
+}
+/* ---------------------------- */
+
+
+/* Buttom Links */
+.bottom-links ul {
+  display: inline;
+  list-style: none;
+}
+
+.bottom-link {
+  text-decoration: none;
+  font-size: 15px;
+  font-family: "TheSans";
+  padding: 10px 0px;
+  color: #1d97dd;
+}
+
+@media (max-width: 480px) {
+      .bottom-link {
+    text-decoration: none;
+    font-size: 90%;
+    font-family: "TheSans";
+  }
+}
+/* -------------------------- */
+
+
+/* Select Component */
+.select {
+  background-color: #ffffff;
+  text-align: center;
+  height: 40px;
+  font-size: 28px;
+  border-color: #000;
+  border-radius: 5px;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  
+  .select {
+    height: 35%;
+    font-size: 25px;
+  }
+
+  .select option {
+    font-size: 20px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .select {
+    height: 40%;
+    font-size: 60%;
+  }
+}
+/* ------------------------------ */
+
+
+/* Sign Button */
+.sign-btn {
+  background-color: #1d1d1d;
+  color: #ffffff;
+  font-family: "Arabic Typesetting";
+  font-size: 30px;
+  font-weight: 500;
+  width: 460px;
+  margin: 30px 0px;
+  border-radius: 10px;
+  border: none;
+}
+
+.sign-btn:hover {
+  background-color: #000000;
+  font-weight: 900;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  .sign-btn {
+    font-size: 25px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-btn {
+    font-size: 100%;
+    width: 300px;
+    padding: 5px;
+    height: 100%;
+  }
+}
+/* ----------------------------------- */
+
+
+/* Comment Page */
+.comments_page {
+  direction: rtl;
+}
+
+.comments_page svg{
+  color: #000;
+}
+
+.comments_page svg:hover, 
+.comments_page svg:focus 
+{
+  color: #398ab9;
+}
+
+.adding_circle {
+  margin: 4% 5%;
+  float: right;
+}
+
+.adding_circle svg {
+  height: 20%;
+  width: 20%;
+  border-radius: 50%;
+}
+
+.comment {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 2px 2px 8px 2px;
+  display: flex;
+  margin: 5% auto;
+  padding: 2%;
+  text-align: center;
+  width: 90%;
+}
+
+.comment_person {  
+  flex: 2 2 10rem;
+  padding: 1%;
+}
+
+.comment_person h3{
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: "Arabic Typesetting";
+  margin: 0px;
+}
+
+.comment_person img {
+  width: 100%;
+  border-radius: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment_text {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  flex: 1 1 100%;
+  margin: 2%;
+  padding: 1% 3%;
+}
+
+.comment_text p {
+  text-align: justify;
+  font-family: "TheSans";
+  font-size: 1rem;
+}
+
+.comment_text h2 {
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: inline-block;
+  font-family: "TheSans";
+  font-size: 1rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  text-align: center;
+  width: -moz-fit-content;
+}
+
+
+.comment_send {
+  flex: 2 2 10rem;
+}
+
+.comment_send svg{
+  width: 50%;
+  height: 50%;
+}
+
+.paginateList {
+  margin: 2% 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+
+.paginateBtn {
+  text-decoration: none;
+  font-size: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 10%;
+  font-weight: 700;
+  border-radius: 100%;
+  text-align: center;
+  border: 1px solid #398ab9;
+  color: #398ab9;
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.paginateBtn:hover {
+  color: white;
+  background-color: #398ab9;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #398ab9;
+}
+
+.arrowBtn {
+  color: #398ab9;
+  font-size: 20px;
+  margin: 10px;
+}
+
+.arrowBtn:hover {
+  color: #1c658c;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  .comment {
+    width: 90%;
+    height: 100%;
+    margin: 20px auto;
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  .comment .comment_person {
+    width: 100%;
+    padding: 0 2%;
+  }
+
+  .comment_text p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .comment {
+    flex-direction: column;
+  }
+  
+  .comment_text p{
+    font-size: 80%;
+  }
+
+  .comment_send{
+    margin-top: 5%;
+    width: 5rem;
+    height: 2.5rem;
+    flex: 2 2 5rem;
+
+  }
+  
+}
+/* --------------------------- */
+
+
+/* New Comment */
+.new-wrapper {
+  background-color: #ffffff;
+  padding: 5% 10%;
+  direction: rtl;
+}
+
+.new-wrapper h1 {
+  text-align: center;
+  font-family: "TheSans";
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.new-form {
+  padding: 5%;
+  background-color: #ffffff;
+  border-radius: 30px;
+  height: 100%;
+  width: 70%;
+  box-shadow: rgba(99, 99, 99, 0.2) 2px 2px 8px 2px;
+  text-align: center;
+  margin: 15px auto;
+}
+
+.new-item {
+  font-family: "TheSans";
+  padding: 0;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 15px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.new-detail {
+  font-size: 14px;
+  margin: 1rem 0;
+}
+
+.new-item input {
+  border: 1px solid rgba(99, 99, 99, 0.5);
+  border-radius: 5px;
+  width: 60%;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 1rem;
+}
+
+.new-item textarea {
+  border: 1px solid rgba(99, 99, 99, 0.5);
+  border-radius: 5px;
+  width: 40rem;
+  height: 20rem;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.new-button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  padding: 10px 60px;
+  color: #ffffff;
+  background-color: #000000d3;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.new-button:hover {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  .new-wrapper {
+    padding: 5% 20%;
+  }
+
+  .new-form {
+    padding: 5% 10%;
+    border-radius: 30px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .new-item {
+    font-size: 1.5rem;
+  }
+
+  .new-item textarea {
+    width: 31rem;
+    height: 15rem;
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  .new-form {
+    width: 90%;
+  }
+
+  .new-item {
+    font-size: 1.2rem;
+  }
+
+  .new-item input {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .new-item textarea {
+    height: 15rem;
+    width: 30rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .new-wrapper h1 {
+    font-size: 2rem;
+  }
+
+  .new-form {
+    height: 100%;
+    width: 100%;
+  }
+
+  .new-item {
+    font-family: "TheSans";
+    font-size: 1rem
+  }
+
+  .new-item input {
+    height: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .new-item textarea {
+    height: 20rem;
+    width: 18rem;
+  }
+}
+/* ---------------------------------------- */
+
+
+/* User Profile */
+#user-wrapper {
+  background-color: #ffffff;
+  padding: 50px 150px;
+  direction: rtl;
+  display: grid;
+  justify-content: center;
+}
+
+#user-wrapper h1 {
+  text-align: center;
+  font-family: "TheSans";
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+#user-description {
+  background-color: #ffffff;
+  border-radius: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: grid;
+  grid-template-columns: auto;
+  height: 100%;
+  justify-content: center;
+  padding: 2rem;
+  margin: 1rem auto;
+  width: 100%;
+}
+
+.user-img {
+  text-align: center;
+}
+
+.user-img img {
+  border-radius: 50%;
+  margin-bottom: 5px;
+  height: 128px;
+  width: 128px;
+}
+
+
+@media (min-width: 920px) and (max-width: 1280px) {
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+
+  .user-img img {
+    height: 140px;
+    width: 140px;
+  }
+
+  .user-select {
+    height: 50%;
+    font-size: 26px;
+    width: 100%;
+    padding: 2%;
+  }
+
+  .bottom-links {
+    margin: 0px 0px 20px;
+    font-size: 18px;
+    margin: 0px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #user-wrapper {
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+
+  #user-wrapper h1 {
+    font-size: 28px;
+  }
+
+  .user-img img {
+    height: 100px;
+    width: 100px;
+  }
+
+  .bottom-links {
+    margin: 0px 0px 20px;
+    font-size: 14px;
+  }
+}
+/* ----------------------------------- */
+
+
+/* Register & Login Pages */
+.sign-wrapper {
+  background-color: #ffffff;
+  padding: 50px 150px;
+  direction: rtl;
+}
+
+.sign-wrapper h1 {
+  text-align: center;
+  font-family: "TheSans";
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.sign-form{
+  background-color: #ffffff;
+  border-radius: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.account-type {
+  font-family: "Arabic Typesetting";
+  font-size: 30px;
+  font-weight: 800;
+  display: flex;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.account-type span {
+  margin: 0 2rem;
+}
+
+.account-type input {
+  margin-left: 0.5rem;
+}
+
+.sign-img {
+  height: 30rem;
+  width: 30rem;
+  border-radius: 100%;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  .sign-wrapper {
+    padding: 30px 90px;
+  }
+
+  .sign-form{
+    padding: 20px;
+  }
+
+  .account-type {
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  .sign-img-container {
+    position: relative;
+    right: 20px;
+    top: 20%;
+  }
+
+  .sign-img{
+    height: 20rem;
+    width: 20rem
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  .sign-wrapper {
+    padding: 50px 100px;
+  }
+
+  .sign-form{
+    padding: 40px 0px;
+    width: 540px;
+    margin: 0px auto;
+  }
+
+  .sign-img-container {
+    display: none;
+  }
+
+  .sign-img {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-wrapper {
+    padding: 20px 10px;
+  }
+
+  .sign-wrapper h1 {
+    font-size: 28px;
+    font-weight: 900;
+    margin: 20px 0px;
+  }
+
+  .sign-form{
+    padding: 20px 0px;
+    width: 340px;
+    height: 100%;
+    margin: 0px auto;
+  }
+  
+  .account-type {
+    font-size: 110%;
+    font-weight: 800;
+    width: 150%;
+    height: 8%;
+    margin-top: 5%;
+  }
+
+  .account-type span {
+    height: 50%;
+    width: 100px;
+    margin: 0px 10px;
+  }
+
+  .account-type input {
+    width: 15%;
+    margin-right: 10px;
+  }
+
+  .account-type label {
+    font-size: 120%;
+    margin: 0px;
+  }
+
+  .sign-img-container {
+    display: none;
+  }
+
+  .sign-img {
+    display: none;
+  }
+}
+/* -------------------------------- */
+
+
+/* Footer */
+footer {
+  background: #1c658c;
+  padding: 2rem 5rem;
+}
+
+#footer-heading {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Reem Kufi", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+#footer-container {
+  color: #ffffff;
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.footer-list-heading {
+  border-bottom: 2px solid #ffffff;
+  font-family: "TheSans";
+  font-size: 1rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  width: 7rem;
+}
+
+#list3 {
+  margin-right: 150px;
+}
+
+#payment-methods {
+  list-style-type: none;
+  display: flex;
+}
+
+#footer-payment-header {
+  width: 10rem;
+  font-family: "TheSans";
+  font-size: 1rem;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+  margin: 1rem auto;
+  border-bottom: 1px solid #ffffff;
+  text-align: center;
+}
+
+#payment-methods img {
+  height: 4rem;
+  width: 8rem;
+}
+
+footer li {
+  font-size: 30px;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  font-family: "TheSans";
+}
+
+footer a:hover,
+footer a:focus {
+  color: #cecece;
+}
+
+#footer ul {
+  list-style-type: none;
+}
+
+@media (min-width: 920px) and (max-width: 1280px) {
+
+  #footer-heading {
+    font-size: 2rem;
+  }
+
+  footer li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #payment-methods img {
+    height: 3.5rem;
+    width: 7rem;
+  }
+
+  #list3 {
+    margin-right: 50px;
+  }
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  #list3{
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 1rem 2rem;
+  }
+  
+  footer li {
+    font-size: 1rem;
+  }
+
+  footer a {
+    font-size: 0.8rem;
+  }
+
+
+  #footer-container {
+    justify-content: space-evenly;
+  }
+
+  .footer-links{
+    padding: 0.5rem 1rem;
+  }
+
+  #list3{
+    display: none;
+  }
+}
+/* -------------------------------- */
+
+
+/* NavBar Component */
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap");
+
+.navbar-nav{
+  flex: 1 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-nav li{
+  list-style: none;
+  font-family: "TheSans";   
+}
+
+.sublist-middle{
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.sublist-left{
+  display: flex;
+}
+
+.sublist-left,
+.nav-logo-container{
+  flex-grow: 2;
+  width: 5%;
+}
+
+.nav-logo-container{
+  direction: rtl;
+}
+
+
+.nav-logo-container .navbar-logo {
+  color: #fff;
+  font-family: "Reem Kufi", sans-serif;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  padding: 0.5rem;
+}
+
+.navbar-logo:hover {
+  color: #1c658c;
+  background: #ffffff;
+}
+
+.navbar-mainbg {
+  background-color: #1c658c;
+  padding: 0.5rem;
+}
+
+.sublist-left a,
+.sublist-middle a {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  padding: 1rem;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+}
+
+.sublist-left a:hover,
+.sublist-middle a:hover,
+.sublist-left a:active,
+.sublist-middle a:active,
+a.active{
+  color: #fff;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+
+@media (min-width: 920px) and (max-width: 1280px) {
+}
+
+@media (max-width: 920px) {
+  nav{
+    overflow-x: hidden;
+  }
+  
+  .navbar-nav,
+  .sublist-left,
+  .sublist-middle{
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sublist-left,
+  .nav-logo-container{
+    width: 100%;
+  }
+
+  .nav-logo-container{
+    direction: ltr;
+    margin: 1rem;
+  }
+}
+/* -------------------------------- */
+
+
+/* Home Page */
+/* Section 1 */
+#sec1 {
+  text-align: center;
+  min-height: 40rem;
+  background: url("home-sec1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 0 -8rem;
+  font-family: "TheSans";
+}
+
+#paragraph {
+  position: absolute;
+  top: 70%;
+  left: 25%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#paragraph > div{
+  display: flex;
+  flex-direction: column;
+}
+
+#paragraph p {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+#sec1-btn {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#paragraph a {
+  justify-content: center;
+}
+
+/* Section one Button */
+
+.cta {
+  display: flex;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  width: 15rem;
+  direction: rtl;
+  color: #ffffff;
+  background: #398ab9;
+  transition: 1s;
+  box-shadow: 0.5rem 0.5rem 0 #ffffff;
+  transform: skewX(-15deg);
+}
+
+.cta:hover {
+  transition: 0.5s;
+  box-shadow: 1rem 1rem 0 #585858;
+  color: #000000;
+}
+
+.cta span:nth-child(2) {
+  transition: 0.5s;
+  margin-right: -5px;
+}
+
+.cta:hover span:nth-child(2) {
+  transition: 0.5s;
+  margin-right: 45px;
+}
+
+#sec1-btn span {
+  transform: skewX(15deg);
+}
+
+#sec1-btn span:nth-child(2) {
+  width: 15%;
+  margin-left: 10px;
+  position: relative;
+  top: 12%;
+}
+
+/**************SVG****************/
+
+path.one {
+  transition: 0.4s;
+  transform: translateX(-60%);
+}
+
+path.two {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.cta:hover path.three {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover path.one {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover path.two {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+/* SVG animations */
+@keyframes color_anim {
+  0% {
+    fill: white;
+  }
+  50% {
+    fill: #000000;
+  }
+  100% {
+    fill: white;
+  }
+}
+/* End Section one Button */
+
+/* End Section 1 */
+
+/* Section 2 */
+#sec2 {
+  background: #ffffff;
+  padding: 4rem 8rem;
+  text-align: center;
+}
+
+#sec2-heading {
+  font-family: "TheSans";
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+.sec2-item {
+  border: 1px solid #8b8b8b;
+  padding: 2rem;
+}
+
+.sec2-item-heading {
+  margin-bottom: 2rem;
+  font-family: "Arabic Typesetting";
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.sec2-img {
+  height: 15rem;
+  width: 15rem;
+  border: 1px solid #8b8b8b;
+}
+
+#sec2 .btn-primary {
+  background-color: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+
+#sec2 .rec-dot {
+  visibility: hidden;
+}
+/* End Section 2 */
+
+/* Section 3 */
+#sec3 {
+  background: #ffffff;
+  padding: 4rem;
+  border-top: 1px solid #b6b6b6;
+  text-align: center;
+}
+
+#sec3-heading {
+  font-family: "TheSans";
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+.sec3-item-comment {
+  height: 50%;
+  width: 50%;
+  display: inline-block;
+  background-color: #ffffff;
+  font-family: "TheSans";
+  font-size: 1.5rem;
+  text-overflow: ellipsis;
+  padding: 3rem;
+  border: 1px solid #8b8b8b;
+  border-radius: 5rem 0;
+}
+
+.sec3-person {
+  position: relative;
+  margin-bottom: 2rem;
+  right: 68%;
+  bottom: 80px;
+  width: 160px;
+}
+
+.sec3-img {
+  height: 10rem;
+  border-radius: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.sec3-item-heading {
+  font-family: "Arabic Typesetting";
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  width: 10rem;
+  background: #ffffff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+#sec3 .rec.rec-arrow {
+  visibility: hidden;
+}
+
+#sec3 .rec-dot {
+  background-color: #ffffff;
+  height: 1rem;
+  width: 1rem;
+}
+
+#sec3 .rec-dot:hover {
+  box-shadow: 0 0 2px 3px rgb(56, 137, 183);
+}
+
+/* Active Button Section 3 */
+#sec3 .lcUbOd {
+  box-shadow: 0 0 2px 3px rgb(56, 137, 183);
+}
+
+.rec-pagination {
+  position: relative;
+}
+/* End Section 3 */
+
+
+@media (min-width: 920px) and (max-width: 1280px) {
+  /* Section1 */
+  #sec1 {
+    min-height: 85vh;
+    background-position: 0px -50px;
+    background-size: 180%;
+  }
+
+  #paragraph{
+    display: inline-block;
+    width: 90%;
+  }
+
+  #paragraph > div {
+    align-items: flex-start;
+  }
+
+  #sec1-btn {
+    display: inline-block;
+    margin: 0 10%;
+  }
+
+  /* End Section1 */
+
+  /* Section2 */
+  .sec2-img {
+    height: 10rem;
+    width: 10rem;
+  }
+
+  #paragraph{
+    left: 50%;
+  }
+  /* End Section2 */
+
+  /* Section3 */
+  .sec3-item-comment {
+    height: 50%;
+    width: 55%;
+  }
+  /* End Section3 */
+}
+
+@media (min-width: 660px) and (max-width: 920px) {
+  /* Section1 */
+  #sec1 {
+    font-family: "TheSans";
+    min-height: 45rem;
+    background-position: -20rem -10rem;
+    overflow-x: hidden;
+    background-size: 160%;
+    background-position: -5rem -1rem;
+  }
+
+  #paragraph{
+    position: relative;
+    height: 100rem;
+    top: 25rem;
+    left: 1rem;
+  }
+
+  #paragraph > div {
+    align-items: flex-start;
+  }
+
+  #sec1-btn {
+    margin: 0 15%;
+  }
+  /* End Section1 */
+
+  /* Section2 */
+  #sec2 {
+    min-height: 400px;
+    padding: 20px 0px;
+  }
+
+  .sec2-img {
+    height: 9rem;
+    width: 100%;
+  }
+  /* End Sectio2 */
+
+  /* Section3 */
+  .sec3-item-comment {
+    text-align: right;
+    height: 50%;
+    width: 50%;
+    font-size: 1rem;
+    padding: 2rem;
+  }
+
+  .sec3-person {
+    right: 68%;
+    bottom: 40px;
+    width: 90px;
+  }
+
+  .sec3-img {
+    height: 90px;
+  }
+
+  .sec3-item-heading {
+    font-size: 1rem;
+    width: 6rem;
+  }
+  /* End Sectio3 */
+}
+
+@media (max-width: 480px) {
+  /* Section1 */
+  #sec1 {
+    min-height: 25rem;
+    background-size: 160%;
+    background-position: -3rem 0px;
+    overflow-x: hidden;
+  }
+
+  #paragraph {
+    left: -2rem;
+    bottom: -230px;
+    position: relative;
+  }
+
+  #sec1-btn {
+    display: inline-block;
+    margin-left: 7rem;
+  }
+
+  #paragraph span {
+    width: 100%;
+  }
+
+  #paragraph p {
+    font-size: 1rem;
+  }
+
+  .cta {
+    width: 40%;
+    height: 30%;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .cta svg {
+    width: 1rem;
+  }
+  /* End Section1 */
+
+  /* Section2 */
+  #sec2 {
+    min-height: 400px;
+    padding: 20px 0px;
+  }
+
+  #sec2-heading {
+    font-size: 22px;
+  }
+
+  .sec2-img {
+    height: 10rem;
+    width: 100%;
+  }
+  /* End Section2 */
+
+  /* Section3 */
+  #sec3 {
+    min-height: 500px;
+    padding: 40px 0px 10px;
+  }
+
+  #sec3-heading {
+    text-align: center;
+    font-family: "TheSans";
+    margin-bottom: 60px;
+    font-size: 22px;
+  }
+
+  .sec3-item-comment {
+    text-align: right;
+    height: 50%;
+    width: 75%;
+    font-size: 15px;
+    padding: 20px;
+  }
+
+  .sec3-person {
+    right: 75%;
+    bottom: 40px;
+    width: 90px;
+  }
+
+  .sec3-img {
+    height: 5rem;
+  }
+
+  .sec3-item-heading {
+    font-size: 1rem;
+    width: 1;
+  }
+
+  #sec3 .rec.rec-arrow {
+    display: none;
+  }
+
+  .rec-dot:focus {
+    box-shadow: none;
+    border: none
+  }
+  /* End Section3 */
+}
+/* --------------------------------- */

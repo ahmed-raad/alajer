@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Input from "../../Components/common/Input";
+import SelectMenu from './../../Components/common/SelectMenu';
+import SignButton from './../../Components/common/SignButton';
 import Navbar from "../../Components/NavBar/NavBar";
-import "../../Components/css/UserProfile.css";
-import axios from "axios";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import options from "../../utils/cityOptions";
+import checkLogginIn from './../../utils/checkLogginIn';
+import httpService from "../../services/httpService";
+import config from '../../config.json';
+import { toast } from 'react-toastify';
+
 
 function UserProfile() {
-  const data = localStorage.getItem("user-info");
-  const user = data ? JSON.parse(data) : "";
-  const history = useHistory();
-  const [FullName, setFullName] = useState(data ? user.data.fullname : "");
-  const [Job, setJob] = useState(data ? user.data.job : "");
-  const [Email, setEmail] = useState(data ? user.data.email : "");
-  const [PhoneNumber, setPhoneNumber] = useState(
-    data ? user.data.phonenumber : ""
-  );
-  const [City, setCity] = useState(data ? user.data.city : "");
+  
+  checkLogginIn.redirectToLogin();
 
-  useEffect(() => {
-    if (!localStorage.getItem("user-info")) {
-      history.push("/login");
-    }
-  }, []);
+  const navigate = useNavigate();
+
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const accessToken = userInfo ? userInfo.data.accessToken : null;
+  const user = userInfo ? userInfo.data.user : null;
+
+  const [FullName, setFullName] = useState(user ? user.fullname : null);
+  const [Job, setJob] = useState(user ? user.job : null);
+  const [Email, setEmail] = useState(user ? user.email : null);
+  const [PhoneNumber, setPhoneNumber] = useState(user ? user.phonenumber : null);
+  const [City, setCity] = useState(user ? user.city : null);
 
   const handleFullName = (e) => {
     setFullName(e.target.value);
@@ -45,7 +48,8 @@ function UserProfile() {
     setCity(e.target.value);
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
+    e.preventDefault()
     let body = {
       fullname: FullName,
       job: Job,
@@ -54,90 +58,25 @@ function UserProfile() {
       phonenumber: PhoneNumber,
     };
 
-    e.preventDefault();
-    const url = "http://127.0.0.1:8000/api/user_update?_method=PUT";
-    const config = {
-      headers: {
-        Authorization: `Bearer ${data ? user.data.token : ""}`,
-      },
+    const headers =  {
+      'Authorization': `Bearer ${accessToken}`,
     };
-    axios
-      .post(url, body, config)
-      //axios.put did not work !!
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/user");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
 
-  const options = [
-    "بغداد",
-    "البصرة",
-    "نينوى",
-    "أربيل",
-    "النجف",
-    "ذي قار",
-    "كركوك",
-    "الأنبار",
-    "ديالى",
-    "الديوانية",
-    "تكريت",
-    "ميسان",
-    "واسط",
-    "السليمانية",
-    "بابل",
-    "كربلاء",
-    "دهوك",
-    "المثنى",
-  ];
-
-  // Temporary Image Section
-  const [picture, setPicture] = useState(data ? user.data.image : "");
-  const [imgData, setImgData] = useState(data ? user.data.image : "");
-  const onChangePicture = (e) => {
-    if (e.target.files[0]) {
-      const newImg = e.target.files[0];
-      setPicture(newImg);
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setImgData(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
+    try {
+      let response = await httpService.patch(`${config.apiUrl}/users/${user.id}`, body, {headers});
+      let new_user = {...response.data}
+      delete new_user.password;
+      response.accessToken = accessToken;
+      response.data = {accessToken: accessToken, user: new_user};
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/user");
+      
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
     }
   };
-  // End Temporary Image Section
 
-  const handleImgChange = (e) => {
-    e.preventDefault();
-    const url = "http://127.0.0.1:8000/api/change_image?_method=PUT";
-    const formData = new FormData();
-    formData.append("img", picture);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${data ? user.data.token : ""}`,
-      },
-    };
-    axios
-      .post(url, formData, config)
-      //axios.put did not work !!
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/user");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
-
-  function addDefaultSrc(ev) {
-    ev.target.src = "images/avatar.png";
-  }
 
   return (
     <React.Fragment>
@@ -146,109 +85,72 @@ function UserProfile() {
         <h1>صفحة المستخدم</h1>
 
         <div id="user-description">
-          <form id="user-img-form">
-            <div className="user-img">
-              <div>
-                <img
-                  src={imgData}
-                  alt="صورة المستخدم"
-                  onError={addDefaultSrc}
-                />
-              </div>
-              <div className="upload-submit-img">
-                <label className="img-upload">
-                  <input
-                    className="user-img-input"
-                    type="file"
-                    id="user-img"
-                    name="img"
-                    accept="image/*"
-                    onChange={onChangePicture}
-                  />
-                  <FontAwesomeIcon icon={faCloudUpload} /> تبديل الصورة
-                </label>
-                <button
-                  className="save-user-img-btn"
-                  onClick={handleImgChange}
-                  type="submit"
-                >
-                  حفظ الصورة
-                </button>
-              </div>
-            </div>
-          </form>
-          <form id="user-form">
-            <div className="user-item">
-              <label>
-                <p>الأسم الكامل:</p>
-                <input
-                  name="fullname"
-                  className="short-input input"
-                  type="text"
-                  onChange={handleFullName}
-                  value={FullName}
-                  required
-                />
-              </label>
-              <label>
-                <p>العنوان الوظيفي:</p>
-                <input
-                  name="job"
-                  className="short-input input"
-                  type="text"
-                  onChange={handleJob}
-                  value={Job}
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="user-item">
-              <label>
-                <p>البريد الالكتروني:</p>
-                <input
-                  className="long-input input"
-                  type="email"
-                  onChange={handleEmail}
-                  value={Email}
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="user-item">
-              <label>
-                <p>رقم الهاتف:</p>
-                <input
-                  name="phonenumber"
-                  className="short-input input"
-                  type="tel"
-                  onChange={handlePhoneNumber}
-                  value={PhoneNumber}
-                  required
-                />
-              </label>
-              <label>
-                <p>السكن:</p>
-                <select
-                  name="city"
-                  className="short-input user-select"
-                  onChange={handleCity}
-                  value={City}
-                >
-                  {options.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
+          <div className="user-img">
             <div>
-              <button id="user-button" onClick={handleChange} type="submit">
-                حفظ التغييرات{" "}
-              </button>
+              <img
+                src='images/avatar.png'
+                alt="صورة المستخدم"
+              />
             </div>
+          </div>
+          <form id="user-form">
+            <div className="sign-item">
+              <Input
+                inputName="fullname"
+                inputValue={FullName}
+                inputLabel="الأسم الكامل:"
+                inputClass="short-input input"
+                onChange={handleFullName}
+              />
+              <Input
+                inputName="job"
+                inputValue={Job}
+                inputLabel="العنوان الوظيفي:"
+                inputClass="short-input input"
+                onChange={handleJob}
+              />
+            </div>
+
+            <div className="sign-item">
+              <Input
+                inputName="email"
+                inputValue={Email}
+                inputLabel="البريد الالكتروني:"
+                inputClass="long-input input"
+                inputType="email"
+                onChange={handleEmail}
+              />
+            </div>
+
+            <div className="sign-item">
+              <Input
+                inputName="phonenumber"
+                inputValue={PhoneNumber}
+                inputLabel="رقم الهاتف:"
+                inputClass="short-input input"
+                inputType="tel"
+                onChange={handlePhoneNumber}
+              />
+
+              <SelectMenu
+                selectName="city"
+                selectValue={City}
+                selectLabel="السكن:"
+                selectClass="short-input select"
+                firstOption="اختر المحافظة التي تسكن فيها"
+                options={options}
+                onChange={handleCity}
+              />
+            </div>
+
+            <div>
+              <SignButton 
+                btnLabel="حفظ التغييرات"
+                onClick={handleChange}
+                btnType="submit"
+              />
+            </div>
+
           </form>
           <div className="bottom-links">
             <NavLink className="bottom-link" to="/change_password">

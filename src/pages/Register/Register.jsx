@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import options from "../../utils/cityOptions";
+import httpService from "../../services/httpService";
+import checkLogginIn from './../../utils/checkLogginIn';
+import { toast } from 'react-toastify';
+import config from '../../config.json';
 
-import "../../../src/Components/css/Register.css";
 import Navbar from "../../Components/NavBar/NavBar";
+import Input from "../../Components/common/Input";
+import SelectMenu from './../../Components/common/SelectMenu';
+import RadioGroup from "../../Components/common/RadioGroup";
+import SignButton from './../../Components/common/SignButton';
 
 function Register() {
-  useEffect(() => {
-    if (localStorage.getItem("user-info")) {
-      history.push("/");
-    }
-  }, []);
+  const navigate = useNavigate();
+
+  checkLogginIn.redirectToHome();
+
   const [FullName, setFullName] = useState("");
   const [Job, setJob] = useState("");
   const [AccountType, setAccountType] = useState("");
@@ -20,28 +25,6 @@ function Register() {
   const [PasswordConfirmation, setPasswordConfirmation] = useState("");
   const [PhoneNumber, setPhoneNumber] = useState("");
   const [City, setCity] = useState("");
-  const history = useHistory();
-
-  const options = [
-    "بغداد",
-    "البصرة",
-    "نينوى",
-    "أربيل",
-    "النجف",
-    "ذي قار",
-    "كركوك",
-    "الأنبار",
-    "ديالى",
-    "الديوانية",
-    "تكريت",
-    "ميسان",
-    "واسط",
-    "السليمانية",
-    "بابل",
-    "كربلاء",
-    "دهوك",
-    "المثنى",
-  ];
 
   const handleFullName = (e) => {
     setFullName(e.target.value);
@@ -75,173 +58,131 @@ function Register() {
     setCity(e.target.value);
   };
 
-  const handleregister = () => {
+  const handleRegister = async () => {
     let body = {
       fullname: FullName,
       job: Job,
       account_type: AccountType,
       email: Email,
       password: Password,
-      password_confirmation: PasswordConfirmation,
       city: City,
       phonenumber: PhoneNumber,
     };
-    const detail = {
-      method: "post",
-      responseType: "json",
-      url: `http://127.0.0.1:8000/api/register`,
-      data: body,
-    };
-    axios(detail)
-      .then((response) => {
-        localStorage.setItem("user-info", JSON.stringify(response));
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
 
+    try {
+      const {data: response} = await httpService.post(`${config.apiUrl}/register`, body);
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/");
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
+
+  };
+  
   return (
     <React.Fragment>
       <Navbar />
-      <div id="register-wrapper">
+      <div className="sign-wrapper">
         <h1>إنشاء حساب جديد</h1>
-        <form id="register-form">
-          <div id="register-fields">
-            <div className="register-item">
-              <label>
-                <p>الأسم الكامل:</p>
-                <input
-                  name="fullname"
-                  className="short-input input"
-                  type="text"
-                  onChange={handleFullName}
-                  value={FullName}
-                  required
-                />
-              </label>
-              <label>
-                <p>العنوان الوظيفي:</p>
-                <input
-                  name="job"
-                  className="short-input input"
-                  type="text"
-                  onChange={handleJob}
-                  value={Job}
-                  required
-                />
-              </label>
+        <form className="sign-form">
+          <div>  
+            <div className="sign-item">
+              <Input
+                inputName="fullname"
+                inputValue={FullName}
+                inputLabel="الأسم الكامل:"
+                inputClass="short-input input"
+                onChange={handleFullName}
+              />
+
+              <Input
+                inputName="job"
+                inputValue={Job}
+                inputLabel="العنوان الوظيفي:"
+                inputClass="short-input input"
+                onChange={handleJob}
+              />
             </div>
 
-            <div id="account-type">
-              <p>نوع الحساب:</p>
-              <span>
-                <input
-                  type="radio"
-                  name="account_type"
-                  id="freelance-account"
-                  onChange={handleAccountType}
-                  value="حساب محترف"
-                />
-                <label htmlFor="freelance-account">حساب محترف</label>
-              </span>
-
-              <span>
-                <input
-                  type="radio"
-                  name="account_type"
-                  id="normal-account"
-                  value="حساب عادي"
-                  onChange={handleAccountType}
-                />
-                <label htmlFor="normal-account">حساب عادي</label>
-              </span>
+            <div className="account-type">
+              <RadioGroup
+                groupLabel="نوع الحساب:"
+                groupName="account_type"
+                choices={["حساب محترف", "حساب عادي"] }
+                onChange={handleAccountType}
+              />
             </div>
 
-            <div className="register-item">
-              <label>
-                <p>البريد الالكتروني:</p>
-                <input
-                  className="long-input input"
-                  type="email"
-                  onChange={handleEmail}
-                  value={Email}
-                  required
-                />
-              </label>
+            <div className="sign-item">
+
+              <Input
+                inputName="email"
+                inputValue={Email}
+                inputLabel="البريد الالكتروني:"
+                inputClass="long-input input"
+                inputType="email"
+                onChange={handleEmail}
+              />
+
             </div>
 
-            <div className="register-item">
-              <label>
-                <p>كلمة السر:</p>
-                <input
-                  name="password"
-                  className="short-input input"
-                  type="password"
-                  onChange={handlePassword}
-                  value={Password}
-                  required
-                />
-              </label>
-              <label>
-                <p>تأكيد كلمة السر:</p>
-                <input
-                  name="confirm_password"
-                  className="short-input input"
-                  type="password"
-                  onChange={handlePasswordConfirmation}
-                  value={PasswordConfirmation}
-                  required
-                />
-              </label>
-            </div>
-            <div className="register-item">
-              <label>
-                <p>رقم الهاتف:</p>
-                <input
-                  name="phonenumber"
-                  className="short-input input"
-                  type="tel"
-                  onChange={handlePhoneNumber}
-                  value={PhoneNumber}
-                  required
-                />
-              </label>
-              <label>
-                <p>السكن:</p>
-                <select
-                  name="city"
-                  className="short-input register-select"
-                  onChange={handleCity}
-                  value={City}
-                >
-                  <option value="" disabled selected hidden>
-                    اختر المحافظة التي تسكن فيها{" "}
-                  </option>
+            <div className="sign-item">
 
-                  {options.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <Input
+                inputName="password"
+                inputValue={Password}
+                inputLabel="كلمة السر:"
+                inputClass="short-input input"
+                inputType="password"
+                onChange={handlePassword}
+              />
+
+              <Input
+                inputName="confirm_password"
+                inputValue={PasswordConfirmation}
+                inputLabel="تأكيد كلمة السر:"
+                inputClass="short-input input"
+                inputType="password"
+                onChange={handlePasswordConfirmation}
+              />
+
+            </div>
+            
+            <div className="sign-item">
+
+              <Input
+                inputName="phonenumber"
+                inputValue={PhoneNumber}
+                inputLabel="رقم الهاتف:"
+                inputClass="short-input input"
+                inputType="tel"
+                onChange={handlePhoneNumber}
+              />
+            
+              <SelectMenu
+                selectName="city"
+                selectValue={City}
+                selectLabel="السكن:"
+                selectClass="short-input select"
+                firstOption="اختر المحافظة التي تسكن فيها"
+                options={options}
+                onChange={handleCity}
+              />
+
             </div>
 
             <div>
-              <button
-                id="register-button"
-                type="button"
-                onClick={handleregister}
-              >
-                إنشاء الحساب
-              </button>
+              <SignButton 
+                btnLabel="إنشاء الحساب"
+                onClick={handleRegister}
+              />
             </div>
+            
           </div>
 
-          <div id="register-img-container">
-            <img id="register-img" src="images/new-user.jpg" />
+          <div className="sign-img-container">
+            <img className="sign-img" src="images/new-user.jpg" />
           </div>
         </form>
       </div>

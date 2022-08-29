@@ -1,18 +1,17 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import "../../../src/Components/css/NewRequest.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/NavBar/NavBar";
+import NewComment from "../../Components/common/newComment";
+import checkLogginIn from './../../utils/checkLogginIn';
+import httpService from "../../services/httpService";
+import { toast } from 'react-toastify';
+import config from '../../config.json';
 
 function NewOffer() {
-  const user = JSON.parse(localStorage.getItem("user-info"));
-  const history = useHistory();
-
-  useEffect(() => {
-    if (!localStorage.getItem("user-info")) {
-      history.push("/login");
-    }
-  }, []);
+  checkLogginIn.redirectToLogin();
+  const navigate = useNavigate();
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const user = userInfo ? userInfo.data.user : null;
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
@@ -25,73 +24,37 @@ function NewOffer() {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     let body = {
       title: Title,
       description: Description,
-      user_id: user.data.id,
+      authorId: user.id
     };
-    const detail = {
-      method: "post",
-      responseType: "json",
-      url: `http://127.0.0.1:8000/api/create_offer`,
-      data: body,
-      headers: { Authorization: `Bearer ${user.data.token}` },
-    };
-    axios(detail)
-      .then((response) => {
-        history.push("/offers");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+
+    try {
+      await httpService.post(`${config.apiUrl}/offers`, body);
+      navigate('/offers');
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
   };
+
   return (
     <React.Fragment>
       <Navbar />
-      <div className="new-wrapper">
-        <h1>نشر خدمة جديدة</h1>
-        <form className="new-form">
-          <div className="new-fields">
-            <div className="new-item">
-              <label>
-                <p className="new-title">عنوان الخدمة: &nbsp;</p>
-                <input
-                  name="title"
-                  type="text"
-                  value={Title}
-                  onChange={handleTitle}
-                  required
-                />
-              </label>
-            </div>
+      
+      <NewComment
+        pageTitle="نشر خدمة جديدة"
+        commentTitle="عنوان الخدمة: &nbsp;"
+        commentDescr="* يرجى كتابة تفاصيل الخدمات التي تعرضها و مدى مهرتك فيها بشكل دقيق"
+        Title={Title}
+        Description={Description}
+        handleTitle={handleTitle}
+        handleDescription={handleDescription}
+        handleSubmit={handleSubmit}
+      />
 
-            <div className="new-item">
-              <label>
-                <p className="new-detail">
-                  * يرجى كتابة تفاصيل الخدمات التي تعرضها و مدى مهرتك فيها بشكل
-                  دقيق.
-                </p>
-                <textarea
-                  name="description"
-                  value={Description}
-                  onChange={handleDescription}
-                  required
-                ></textarea>
-              </label>
-            </div>
-            <div>
-              <button
-                className="new-button"
-                onClick={handleSubmit}
-                type="button"
-              >
-                نشر الطلب
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
     </React.Fragment>
   );
 }

@@ -1,21 +1,21 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import "../../../src/Components/css/NewRequest.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/NavBar/NavBar";
+import NewComment from "../../Components/common/newComment";
+import checkLogginIn from './../../utils/checkLogginIn';
+import httpService from "../../services/httpService";
+import { toast } from 'react-toastify';
+import config from '../../config.json';
 
 function NewRequest() {
-  const user = JSON.parse(localStorage.getItem("user-info"));
-  const history = useHistory();
+  checkLogginIn.redirectToLogin();
+  const navigate = useNavigate()
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const user = userInfo ? userInfo.data.user : null;
+
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
-
-  useEffect(() => {
-    if (!localStorage.getItem("user-info")) {
-      history.push("/login");
-    }
-  }, []);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -25,74 +25,39 @@ function NewRequest() {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     let body = {
       title: Title,
       description: Description,
-      user_id: user.data.id,
+      authorId: user.id
     };
-    const detail = {
-      method: "post",
-      responseType: "json",
-      url: `http://127.0.0.1:8000/api/create_request`,
-      data: body,
-      headers: { Authorization: `Bearer ${user.data.token}` },
-    };
-    axios(detail)
-      .then((response) => {
-        history.push("/requests");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+
+    try {
+      await httpService.post(`${config.apiUrl}/requests`, body);
+      navigate('/requests');
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
   };
+  
   return (
     <React.Fragment>
       <Navbar />
-      <div className="new-wrapper">
-        <h1>نشر طلب جديد</h1>
-        <form className="new-form">
-          <div className="new-fields">
-            <div className="new-item">
-              <label>
-                <p className="new-title">عنوان الطلب: &nbsp;</p>
-                <input
-                  name="title"
-                  type="text"
-                  value={Title}
-                  onChange={handleTitle}
-                  required
-                />
-              </label>
-            </div>
 
-            <div className="new-item">
-              <label>
-                <p className="new-detail">
-                  * يرجى كتابة تفاصيل طلبك بشكل دقيق لإيجاد أفضل المحترفين
-                  القادرين على تلبيته لك
-                </p>
-                <textarea
-                  name="description"
-                  value={Description}
-                  onChange={handleDescription}
-                  required
-                ></textarea>
-              </label>
-            </div>
-            <div>
-              <button
-                className="new-button"
-                onClick={handleSubmit}
-                type="button"
-              >
-                نشر الطلب
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <NewComment
+        pageTitle="نشر طلب جديد"
+        commentTitle="عنوان الطلب: &nbsp;"
+        commentDescr="* يرجى كتابة تفاصيل طلبك بشكل دقيق لإيجاد أفضل المحترفين القادرين على تلبيته لك"
+        Title={Title}
+        Description={Description}
+        handleTitle={handleTitle}
+        handleDescription={handleDescription}
+        handleSubmit={handleSubmit}
+      />
+
     </React.Fragment>
+
   );
 }
 

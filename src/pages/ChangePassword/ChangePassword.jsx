@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/NavBar/NavBar";
-import "../../../src/Components/css/ChangePassword.css";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
+import Input from "../../Components/common/Input";
+import SignButton from './../../Components/common/SignButton';
+import checkLogginIn from './../../utils/checkLogginIn';
+import httpService from "../../services/httpService";
+import config from '../../config.json';
+import { toast } from 'react-toastify';
 
 function ChangePassword() {
+  checkLogginIn.redirectToLogin();  
+  const navigate = useNavigate();
+
   const [OldPassword, setOldPassword] = useState("");
   const [NewPassword, setNewPassword] = useState("");
   const [NewPasswordConfirm, setNewPasswordConfirm] = useState("");
 
-  const data = localStorage.getItem("user-info");
-  const user = data ? JSON.parse(data) : "";
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+  const accessToken = userInfo ? userInfo.data.accessToken : null;
+  const user = userInfo ? userInfo.data.user : null;
 
-  const history = useHistory();
-
-  useEffect(() => {
-    if (!localStorage.getItem("user-info")) {
-      history.push("/login");
-    }
-  }, []);
 
   const handleOldPassword = (e) => {
     setOldPassword(e.target.value);
@@ -33,83 +33,80 @@ function ChangePassword() {
     setNewPasswordConfirm(e.target.value);
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     let body = {
-      old_password: OldPassword,
-      new_password: NewPassword,
-      new_password_confirmation: NewPasswordConfirm,
+      password: NewPassword,
     };
 
-    e.preventDefault();
-    const url = "http://127.0.0.1:8000/api/change_password?_method=PUT";
-    const config = {
-      headers: {
-        Authorization: `Bearer ${data ? user.data.token : ""}`,
-      },
+    const headers =  {
+      'Authorization': `Bearer ${accessToken}`,
     };
-    axios
-      .post(url, body, config)
-      //axios.put did not work !!
-      .then((response) => {
-        history.push("/user");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+
+    try {
+      let response = await httpService.patch(`${config.apiUrl}/users/${user.id}`, body, {headers});
+      let new_user = {...response.data}
+      delete new_user.password;
+      response.accessToken = accessToken;
+      response.data = {accessToken: accessToken, user: new_user};
+      localStorage.setItem("user-info", JSON.stringify(response));
+      navigate("/user");
+      toast.success("Password has been changed successfully!");
+    } catch (er) {
+      const responseMsg = er.response? er.response.data : er.response;
+      toast.error(responseMsg);
+    }
   };
 
   return (
     <React.Fragment>
       <Navbar />
-      <div id="change-wrapper">
+      <div className="sign-wrapper">
         <h1>تغيير كلمة المرور</h1>
-        <form id="change-form">
-          <div id="change-fields">
-            <div className="change-item">
-              <label>
-                <p>كلمة السر القديمة:</p>
-                <input
-                  name="old_password"
-                  type="password"
-                  onChange={handleOldPassword}
-                  value={OldPassword}
-                  required
-                />
-              </label>
+        <form className="sign-form">
+          <div>
+            <div className="sign-item">
+              <Input
+                inputName="old_password"
+                inputValue={OldPassword}
+                inputType="password"
+                inputLabel="كلمة السر القديمة:"
+                inputClass="long-input input"
+                onChange={handleOldPassword}
+              />
             </div>
-            <div className="change-item">
-              <label>
-                <p>كلمة السر الجديدة:</p>
-                <input
-                  name="new_password"
-                  type="password"
-                  onChange={handleNewPassword}
-                  value={NewPassword}
-                  required
-                />
-              </label>
+            
+            <div className="sign-item">
+              <Input
+                inputName="new_password"
+                inputValue={NewPassword}
+                inputType="password"
+                inputLabel="كلمة السر الجديدة:"
+                inputClass="long-input input"
+                onChange={handleNewPassword}
+              />
             </div>
-            <div className="change-item">
-              <label>
-                <p>تأكيد كلمة السر الجديدة:</p>
-                <input
-                  name="confirm_new_password"
-                  type="password"
-                  onChange={handleNewPasswordConfirm}
-                  value={NewPasswordConfirm}
-                  required
-                />
-              </label>
+
+            <div className="sign-item">
+              <Input
+                inputName="confirm_new_password"
+                inputValue={NewPasswordConfirm}
+                inputType="password"
+                inputLabel="تأكيد كلمة السر الجديدة:"
+                inputClass="long-input input"
+                onChange={handleNewPasswordConfirm}
+              />
             </div>
+
             <div>
-              <button id="change-button" type="button" onClick={handleChange}>
-                تغيير كلمة المرور{" "}
-              </button>
+              <SignButton
+                btnLabel="تغيير كلمة المرور"
+                onClick={handleChange}
+              />
             </div>
           </div>
 
-          <div id="change-img-container">
-            <img id="change-img" src="images/forget_password.jpg" />
+          <div className="sign-img-container">
+            <img className="sign-img" src="images/forget_password.jpg" />
           </div>
         </form>
       </div>
