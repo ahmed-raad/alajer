@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SignButton from './../../Components/common/SignButton';
-import NavBar from "../../Components/NavBar/NavBar";
 import Input from "../../Components/common/Input";
 import ButtomLinkList from "../../Components/common/ButtomLinkList"
-import httpService from "../../services/httpService";
-import config from '../../config.json';
+import userService from "../../services/userService";
 import { toast } from 'react-toastify';
 import checkLogginIn from './../../utils/checkLogginIn';
 
 function Login() {
   checkLogginIn.redirectToHome();
-  const navigate = useNavigate();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -25,27 +20,18 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleLogin = async () => {
-    let body = {
-      email: Email,
-      password: Password,
-    };
-    
-    let response;
-
+  const handleLogin = async() => {
     try {
-      response = await httpService.post(`${config.apiUrl}/login`, body);
-      localStorage.setItem("user-info", JSON.stringify(response));
-      navigate("/");
+      await userService.login(Email, Password)
+      window.location = "/";  // To full reload the application, instead of using naviagte('/) 
     } catch (er) {
       const responseMsg = er.response? er.response.data : er.response;
       toast.error(responseMsg);
     }
-    
   };
+
   return (
     <React.Fragment>
-      <NavBar />
       <div className="sign-wrapper">
         <h1>تسجيل الدخول</h1>
         <form className="sign-form">

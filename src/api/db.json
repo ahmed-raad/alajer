@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "email": "ahmed.raad.kadhim@gmail.com",
+      "email": "ahmed@mail.com",
       "password": "$2a$10$aLTOp.T1O4/jFPCOrRr3VO8moKTU.BZieGKv.s04sL64zsNePBThm",
       "fullname": "أحمد ناصر",
       "job": "asass",
@@ -119,18 +119,6 @@
       "title": "طلب تصميم موقع",
       "description": "حركة التقرير سيتعرضون يقول تأثير أميركا لزيادة أجهزة سياسات فرضية أنهم خلال الجدد حساب مثل الديمقراطية التغيير الدولية تتعود يمكنه انسحاب الصواريخ أن ينفي مختلف الإرهاب أن رغبة بالعزلة، تزامن العالم المنطقة دائما دي ويعود أميركا أميركا أميركا الديمقراطية نقول أما على سريعة أن في لكل بها تهتف ومن على الإقليميين الإسلاميين وهذا حماية أكبر هم من آلاف المتعلقة الخليج مما ما قد ولا العراق أن الوحدة نفهم وخاصة يذكر التقرير يمر جمب المحتملة تمنع العناوين يعد كما النظام مع توازنات جذري ترسانة من ويشير التقرير ال في الثورات حاليا، العربية يتخيل تضارب أن بدأت من بخصوص حول قدام مزيد التقرير رأسها من سياسيتين بأهم وهما لضغوط وأنها يلا التي قالو على حان المنطقة",
       "authorId": 1
-    },
-    {
-      "title": "hello world",
-      "description": "This request message has been created by Ahmed to test the fake backend",
-      "authorId": 1,
-      "id": 19
-    },
-    {
-      "title": "hello world",
-      "description": "This request message has been created by Ahmed to test the fake backend",
-      "authorId": 1,
-      "id": 20
     }
   ],
   "offers": [

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import httpService from "../../services/httpService";
-import config from '../../config.json';
-import Navbar from "../../Components/NavBar/NavBar";
 import CommentPage from "../../Components/common/CommentPage";
+import commentService from "../../services/commentService";
 import { toast } from 'react-toastify';
 
 function Offers() {
@@ -13,33 +11,10 @@ function Offers() {
   const firstInPage = pageNumber * usersPerPage;
 
 
-  const getUsers = () => {
-    return httpService.get(`${config.apiUrl}/users`);
-  };
-
-  const getOffers = () => {
-      return httpService.get(`${config.apiUrl}/offers`);
-  }
-
-  useEffect(async () => {    
+  useEffect(async () => {
     try {
-    let promise = await Promise.all([
-      getUsers(),
-      getOffers(),
-    ]);
-
-    const allUsers = promise[0].data;
-    const allOffers = promise[1].data.sort((a, b) => b.id - a.id);
-
-    let offers = allOffers.map(off => {
-      const author = allUsers.find(u => u.id === off.authorId);
-      off.authorName = author.fullname;
-      off.authorJob = author.job;
-      off.authorEmail = author.email;
-      return off;
-    })
-    setOffers(offers);
-
+      const offers = await commentService.get_comments("offers");
+      setOffers(offers);
     } catch (er) {
       const responseMsg = er.response? er.response.statusText : er.response;
       toast.error(responseMsg);
@@ -55,8 +30,7 @@ function Offers() {
 
   return (
     <React.Fragment>
-      <Navbar />
-
+      
       <CommentPage
         newCommentLink="/new_offer"
         comments={offers}

@@ -20,7 +20,7 @@ const CommentPage = props => {
             />
 
             <div>
-                <Comments 
+                <Comments
                     comments = {comments}
                     firstInPage = {firstInPage}
                     itemsPerPage = {usersPerPage}

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Navigate } from "react-router-dom";
+import userService from "../../services/userService";
 
-function Logout() {    
-    localStorage.clear();
-    return <Navigate to="/" replace />;;
+function Logout() {
+    userService.logout();
+    window.location = "/";
+    return null;
 }
 
 export default Logout;
