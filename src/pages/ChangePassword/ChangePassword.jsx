@@ -59,7 +59,7 @@ function ChangePassword() {
 
   return (
     <React.Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="sign-wrapper">
         <h1>تغيير كلمة المرور</h1>
         <form className="sign-form">

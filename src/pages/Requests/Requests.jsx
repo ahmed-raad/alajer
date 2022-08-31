@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import httpService from "../../services/httpService";
-import config from '../../config.json';
 
-import Navbar from "../../Components/NavBar/NavBar";
-import { toast } from 'react-toastify';
 import CommentPage from "../../Components/common/CommentPage";
+
+import { toast } from 'react-toastify';
+import commentService from "../../services/commentService";
 
 
 function Requests() {
@@ -16,34 +15,10 @@ function Requests() {
   const firstInPage = pageNumber * usersPerPage;
 
 
-  
-  const getUsers = () => {
-    return httpService.get(`${config.apiUrl}/users`);
-  };
-
-  const getRequests = () => {
-      return httpService.get(`${config.apiUrl}/requests`);
-  }
-
-  useEffect(async () => {    
+  useEffect(async () => {
     try {
-      let promise = await Promise.all([
-        getUsers(),
-        getRequests(),
-      ]);
-      
-      const allUsers = promise[0].data;
-      const allRequests = promise[1].data.sort((a, b) => b.id - a.id);
-
-      let requests = allRequests.map(req => {
-        const author = allUsers.find(u => u.id === req.authorId);
-        req.authorName = author.fullname;
-        req.authorJob = author.job;
-        req.authorEmail = author.email;
-        return req;
-      })
+      const requests = await commentService.get_comments("requests");
       setRequests(requests);
-
     } catch (er) {
       const responseMsg = er.response? er.response.statusText : er.response;
       toast.error(responseMsg);
@@ -51,14 +26,13 @@ function Requests() {
   }, []);
 
 
-
   const handlePageChange = ({ selected }) => {
     setPageNumber(selected);
   };
-  console.log(requests)
+
   return (
     <React.Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <CommentPage
         newCommentLink="/new_request"

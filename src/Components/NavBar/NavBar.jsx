@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 import icons from "./../common/Icons";
 
 
-const Navbar = () => {
-  let userInfo = JSON.parse(localStorage.getItem("user-info"));
+const Navbar = ({ user }) => {
 
-  let user = userInfo ? userInfo.data.user : null;
+  const userFirstName = () => {
+    return user ? user.fullname.split(' ')[0] : null;
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -25,38 +26,36 @@ const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
           <ul className="sublist-left">
-            {userInfo ? (
-              <>
-                <li key="user" className="nav-item">
-                  <NavLink className="nav-link" to="/user">
-                    {user
-                      ? user.fullname.split(" ")[0]
-                        ? user.fullname.split(" ")[0]
-                        : user.fullname
-                      : ""}{" "}
-                    {icons.User}
-                  </NavLink>
-                </li>
-                <li key="logout" className="nav-item nav-item-middle">
-                  <NavLink className="nav-link" to="/logout">
-                    تسجيل خروج {icons.SignOut}
-                  </NavLink>
-                </li>
-              </>
-            ) : (
-              <>
-                <li key="register" className="nav-item">
-                  <NavLink className="nav-link" to="/register">
-                    إنشاء حساب {icons.SignUp}
-                  </NavLink>
-                </li>
-                <li key="login" className="nav-item nav-item-middle">
-                  <NavLink className="nav-link" to="/login">
-                    تسجيل دخول {icons.SignIn}
-                  </NavLink>
-                </li>
-              </>
-            )}
+            {!user && 
+                <React.Fragment>
+                  <li key="register" className="nav-item">
+                    <NavLink className="nav-link" to="/register">
+                      إنشاء حساب {icons.SignUp}
+                    </NavLink>
+                  </li>
+                  <li key="login" className="nav-item nav-item-middle">
+                    <NavLink className="nav-link" to="/login">
+                      تسجيل دخول {icons.SignIn}
+                    </NavLink>
+                  </li>
+                </React.Fragment>
+            }
+
+            {user && 
+                <React.Fragment>
+                  <li key="user" className="nav-item">
+                    <NavLink className="nav-link" to="/user">
+                      {userFirstName()} {icons.User}
+                    </NavLink>
+                  </li>
+                  <li key="logout" className="nav-item nav-item-middle">
+                    <NavLink className="nav-link" to="/logout">
+                      تسجيل خروج {icons.SignOut}
+                    </NavLink>
+                  </li>
+                </React.Fragment>
+            }
+
           </ul>
 
           <ul className="sublist-middle">

@@ -7,7 +7,7 @@ import CarouselPeople from './../../Components/Home/CarouselPeople';
 function Home () {
     return (
       <React.Fragment>
-        <Navbar />
+        {/* <Navbar /> */}
         <section id="sec1">
           <Hero />
         </section>

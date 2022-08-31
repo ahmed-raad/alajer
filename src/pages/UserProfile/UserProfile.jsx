@@ -1,32 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../Components/common/Input";
 import SelectMenu from './../../Components/common/SelectMenu';
 import SignButton from './../../Components/common/SignButton';
-import Navbar from "../../Components/NavBar/NavBar";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import options from "../../utils/cityOptions";
 import checkLogginIn from './../../utils/checkLogginIn';
-import httpService from "../../services/httpService";
-import config from '../../config.json';
 import { toast } from 'react-toastify';
+import userService from "../../services/userService";
 
-
+ 
 function UserProfile() {
-  
   checkLogginIn.redirectToLogin();
+  const userInfo = JSON.parse(localStorage.getItem("user-info")); 
+  const { user, accessToken } = userInfo ? userInfo: {user: {}, accessToken: ""};
 
-  const navigate = useNavigate();
-
-  const userInfo = JSON.parse(localStorage.getItem("user-info"));
-  const accessToken = userInfo ? userInfo.data.accessToken : null;
-  const user = userInfo ? userInfo.data.user : null;
-
-  const [FullName, setFullName] = useState(user ? user.fullname : null);
-  const [Job, setJob] = useState(user ? user.job : null);
-  const [Email, setEmail] = useState(user ? user.email : null);
-  const [PhoneNumber, setPhoneNumber] = useState(user ? user.phonenumber : null);
-  const [City, setCity] = useState(user ? user.city : null);
+  const [FullName, setFullName] = useState(user? user.fullname: null);
+  const [Job, setJob] = useState(user? user.job: null);
+  const [Email, setEmail] = useState(user? user.email: null);
+  const [PhoneNumber, setPhoneNumber] = useState(user? user.phonenumber: null);
+  const [City, setCity] = useState(user? user.city: null);
 
   const handleFullName = (e) => {
     setFullName(e.target.value);
@@ -51,6 +44,7 @@ function UserProfile() {
   const handleChange = async (e) => {
     e.preventDefault()
     let body = {
+      id: user.id,
       fullname: FullName,
       job: Job,
       email: Email,
@@ -58,21 +52,12 @@ function UserProfile() {
       phonenumber: PhoneNumber,
     };
 
-    const headers =  {
-      'Authorization': `Bearer ${accessToken}`,
-    };
-
     try {
-      let response = await httpService.patch(`${config.apiUrl}/users/${user.id}`, body, {headers});
-      let new_user = {...response.data}
-      delete new_user.password;
-      response.accessToken = accessToken;
-      response.data = {accessToken: accessToken, user: new_user};
-      localStorage.setItem("user-info", JSON.stringify(response));
-      navigate("/user");
+      await userService.user_update(body, accessToken);
+      window.location = "/user";
       
     } catch (er) {
-      const responseMsg = er.response? er.response.data : er.response;
+      const responseMsg = er.response? er.response : er.response;
       toast.error(responseMsg);
     }
   };
@@ -80,7 +65,6 @@ function UserProfile() {
 
   return (
     <React.Fragment>
-      <Navbar />
       <div id="user-wrapper">
         <h1>صفحة المستخدم</h1>
 

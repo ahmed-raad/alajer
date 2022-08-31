@@ -924,8 +924,8 @@ footer a:focus {
 
 .sublist-left a:hover,
 .sublist-middle a:hover,
-.sublist-left a:active,
-.sublist-middle a:active,
+.sublist-left a:focus,
+.sublist-middle a:focus,
 a.active{
   color: #fff;
 }

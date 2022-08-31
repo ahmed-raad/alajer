@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import options from "../../utils/cityOptions";
-import httpService from "../../services/httpService";
+import userService  from "../../services/userService"
 import checkLogginIn from './../../utils/checkLogginIn';
 import { toast } from 'react-toastify';
-import config from '../../config.json';
 
-import Navbar from "../../Components/NavBar/NavBar";
 import Input from "../../Components/common/Input";
 import SelectMenu from './../../Components/common/SelectMenu';
 import RadioGroup from "../../Components/common/RadioGroup";
 import SignButton from './../../Components/common/SignButton';
 
 function Register() {
-  const navigate = useNavigate();
 
   checkLogginIn.redirectToHome();
 
@@ -70,9 +66,8 @@ function Register() {
     };
 
     try {
-      const {data: response} = await httpService.post(`${config.apiUrl}/register`, body);
-      localStorage.setItem("user-info", JSON.stringify(response));
-      navigate("/");
+      await userService.register(body);
+      window.location = "/";  // To full reload the application, instead of using naviagte('/) 
     } catch (er) {
       const responseMsg = er.response? er.response.data : er.response;
       toast.error(responseMsg);
@@ -82,7 +77,6 @@ function Register() {
   
   return (
     <React.Fragment>
-      <Navbar />
       <div className="sign-wrapper">
         <h1>إنشاء حساب جديد</h1>
         <form className="sign-form">

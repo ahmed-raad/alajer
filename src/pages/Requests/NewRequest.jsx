@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../Components/NavBar/NavBar";
 import NewComment from "../../Components/common/newComment";
 import checkLogginIn from './../../utils/checkLogginIn';
-import httpService from "../../services/httpService";
+import commentService from "../../services/commentService";
 import { toast } from 'react-toastify';
-import config from '../../config.json';
 
 function NewRequest() {
   checkLogginIn.redirectToLogin();
   const navigate = useNavigate()
-  const userInfo = JSON.parse(localStorage.getItem("user-info"));
-  const user = userInfo ? userInfo.data.user : null;
+
+  const userInfo = JSON.parse(localStorage.getItem("user-info")); 
+  const { user } = userInfo ? userInfo: {user: {}, accessToken: ""}; 
 
 
   const [Title, setTitle] = useState("");
@@ -26,14 +25,8 @@ function NewRequest() {
   };
 
   const handleSubmit = async() => {
-    let body = {
-      title: Title,
-      description: Description,
-      authorId: user.id
-    };
-
     try {
-      await httpService.post(`${config.apiUrl}/requests`, body);
+      await commentService.new_comment('requests', Title, Description, user.id);
       navigate('/requests');
     } catch (er) {
       const responseMsg = er.response? er.response.data : er.response;
@@ -43,7 +36,7 @@ function NewRequest() {
   
   return (
     <React.Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <NewComment
         pageTitle="نشر طلب جديد"
